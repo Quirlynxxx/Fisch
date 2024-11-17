@@ -4,7 +4,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.538",
+   Name = "[🍄] Fisch | Version 0.0.536",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -44,60 +44,11 @@ _G.pljump = 50
 
 _G.espisonade = false
 
-_G.hwid = nil
-_G.pass = nil
-
 --Services
 local GuiService = game:GetService("GuiService")
 local VirtualInputManager = game:GetService("VirtualInputManager")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
-local HttpService = game:GetService("HttpService")
-
---Password
-function getDeviceHash()
-    local player = Players.LocalPlayer
-    if player then
-        local userId = player.UserId
-        local deviceId = player.MembershipType
-        local uniqueString = userId .. "-" .. deviceId
-        local deviceHash = HttpService:GenerateGUID(false) .. "-" .. HttpService:UrlEncode(uniqueString)
-        _G.hwid = deviceHash
-        return deviceHash
-    else
-        return nil
-    end
-end
-
-function generatePassword(deviceHash)
-    local password = HttpService:GenerateGUID(false) .. "-" .. deviceHash
-    _G.pass = password
-    return password
-end
-
-function sendPasswordToDiscord(password)
-    local webhookUrl = "https://discord.com/api/webhooks/1306317237505884182/c1ApOXa03dcmO7P_IRtUpCTxByIfL0eKtW6GhFwTyTYgB2RKJjKl3HGZDMvbsWwIWeW2"
-    local data = {
-        content = "Сгенерированный пароль: " .. password
-    }
-    local jsonData = HttpService:JSONEncode(data)
-    local headers = {
-        ["Content-Type"] = "application/json"
-    }
-    HttpService:PostAsync(webhookUrl, jsonData, Enum.HttpContentType.ApplicationJson, false, headers)
-end
-
-local deviceHash = getDeviceHash()
-if deviceHash then
-    local password = generatePassword(deviceHash)
-    sendPasswordToDiscord(password)
-end
-
-local deviceHash = getDeviceHash()
-if deviceHash then
-    local password = generatePassword(deviceHash)
-    sendPasswordToDiscord(password)
-end
 
 --Functions
 local function AutoCast()
