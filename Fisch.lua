@@ -4,7 +4,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.539",
+   Name = "[🍄] Fisch | Version 0.0.537",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -63,20 +63,6 @@ function getPass()
         warn("Ошибка при отправке данных в Discord: " .. errorMessage)
     end
 end
-
-local teleportp = tp:CreateButton({
-    Name = "🔑 Get Key Test",
-    Callback = function()
-        getPass()
-        setclipboard(_G.key)
-        Rayfield:Notify({
-            Title = "🟩 Success!",
-            Content = "Copied key to clipboard!",
-            Duration = 3,
-            Image = 4483362458,
-        })
-    end
-})
 
 --Values
 _G.acast = false
@@ -296,6 +282,20 @@ local ma = Window:CreateTab("Main", "fish")
 local tp = Window:CreateTab("Teleport", "earth")
 local misc = Window:CreateTab("Misc", "hammer")
 local setting = Window:CreateTab("Settings", "bolt")
+
+local getkeybtn = ma:CreateButton({
+    Name = "🔑 Get Key Test",
+    Callback = function()
+        getPass()
+        setclipboard(_G.key)
+        Rayfield:Notify({
+            Title = "🟩 Success!",
+            Content = "Copied key to clipboard!",
+            Duration = 3,
+            Image = 4483362458,
+        })
+    end
+})
 
 --Main
 local Section = ma:CreateSection("🎣 Auto Cast")
