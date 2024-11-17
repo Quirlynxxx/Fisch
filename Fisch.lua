@@ -4,7 +4,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.532",
+   Name = "[🍄] Fisch | Version 0.0.533",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -538,12 +538,26 @@ local tpptoboat = tp:CreateButton({
             local seat = boat:FindFirstChild("owner")
             if seat and seat:IsA("Seat") then
                teleportPlayer(seat.Position)
+            else
+               Rayfield:Notify({
+                  Title = "🟥 Failed!",
+                  Content = "The 'owner' seat was not found or is not a 'Seat' type.",
+                  Duration = 3,
+                  Image = 4483362458,
+               })
             end
+         else
+            Rayfield:Notify({
+               Title = "🟥 Failed!",
+               Content = "No boat model found.",
+               Duration = 3,
+               Image = 4483362458,
+            })
          end
       else
          Rayfield:Notify({
             Title = "🟥 Failed!",
-            Content = "You don't have a boat on the map.",
+            Content = "No boats found.",
             Duration = 3,
             Image = 4483362458,
          })
@@ -551,10 +565,10 @@ local tpptoboat = tp:CreateButton({
    end,
 })
 
-local Section = misc:CreateSection("📌 Position")
+local Section = tp:CreateSection("📌 Position")
 
 local savedPosition = nil
-local savep = misc:CreateButton({
+local savep = tp:CreateButton({
    Name = "🟩 Save Position",
    Callback = function()
       local player = game.Players.LocalPlayer
@@ -577,7 +591,7 @@ local savep = misc:CreateButton({
    end,
 })
 
-local teleportp = misc:CreateButton({
+local teleportp = tp:CreateButton({
    Name = "🟨 Teleport To Saved Position",
    Callback = function()
       local player = game.Players.LocalPlayer
