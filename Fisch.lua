@@ -4,7 +4,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.531",
+   Name = "[🍄] Fisch | Version 0.0.532",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -53,6 +53,7 @@ function getPass()
       	 content = "Hello " .. player.DisplayName .. ", your key is " .. _G.key
        })
     )
+end
 
 --Values
 _G.acast = false
