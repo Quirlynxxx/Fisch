@@ -65,6 +65,7 @@ function getPass()
     end
 end
 
+getPass()
 Rayfield:Notify({
    Title = "🔑 Get Pass Test",
    Content = "1234",
