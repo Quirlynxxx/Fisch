@@ -4,7 +4,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.535",
+   Name = "[🍄] Fisch | Version 0.0.536",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -522,39 +522,6 @@ local titems = tp:CreateDropdown({
          elseif selectedItem == "🎺 Conception Conch" then
             teleportPlayer(-1632, -214, -2862)
          end
-   end,
-})
-
-local Section = tp:CreateSection("🔰 Other")
-local tpptoboat = tp:CreateButton({
-   Name = "🚤 Teleport to my boat",
-   Callback = function()
-      local player = game.Players.LocalPlayer
-      local name = player.Name
-      local boats = workspace.active.boats:FindFirstChild(name)
-      if boats then
-         local boat = boats:FindFirstChildWhichIsA("Model")
-         if boat then
-            local seat = boat:FindFirstChild("owner")
-            if seat then
-               teleportPlayer(seat.CFrame)
-            end
-         else
-            Rayfield:Notify({
-               Title = "🟥  Failed!",
-               Content = "No boats found on the map.",
-               Duration = 3,
-               Image = 4483362458,
-            })
-         end
-      else
-         Rayfield:Notify({
-            Title = "🟥  Failed!",
-            Content = "No boats found on the map.",
-            Duration = 3,
-            Image = 4483362458,
-         })
-      end
    end,
 })
 
