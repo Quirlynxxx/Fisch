@@ -1,10 +1,9 @@
-
 --Load library
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.533",
+   Name = "[🍄] Fisch | Version 0.0.53",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -31,29 +30,6 @@ local GuiService = game:GetService("GuiService")
 local VirtualInputManager = game:GetService("VirtualInputManager")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
-local HttpService = game:GetService("HttpService")
-
---Password
-_G.key = nil
-function getPass()
-    local chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-    local password = "KEY-"
-    for i = 1, 9 do
-        password = password .. chars:sub(math.random(1, #chars), math.random(1, #chars))
-    end
-
-    _G.key = password
-
-    local webhook = "https://discord.com/api/webhooks/1306317237505884182/c1ApOXa03dcmO7P_IRtUpCTxByIfL0eKtW6GhFwTyTYgB2RKJjKl3HGZDMvbsWwIWeW2"
-
-    local player = game.Players.LocalPlayer
-      
-    HttpService:PostAsync(webhook, 
-       HttpService:JSONEncode({
-      	 content = "Hello " .. player.DisplayName .. ", your key is " .. _G.key
-       })
-    )
-end
 
 --Values
 _G.acast = false
@@ -274,20 +250,6 @@ local tp = Window:CreateTab("Teleport", "earth")
 local misc = Window:CreateTab("Misc", "hammer")
 local setting = Window:CreateTab("Settings", "bolt")
 
-local getkeybtn = ma:CreateButton({
-    Name = "🔑 Get Key Test",
-    Callback = function()
-        getPass()
-        setclipboard(_G.key)
-        Rayfield:Notify({
-            Title = "🟩 Success!",
-            Content = "Copied key to clipboard!",
-            Duration = 3,
-            Image = 4483362458,
-        })
-    end
-})
-
 --Main
 local Section = ma:CreateSection("🎣 Auto Cast")
 local acast = ma:CreateToggle({
@@ -466,7 +428,7 @@ local ttotem = tp:CreateDropdown({
 })
 
 local tfishingRods = tp:CreateDropdown({
-   Name = "🍣 Select Fishing Rod",
+   Name = "🎣 Select Fishing Rod",
    Options = {
       "🍣 Basic Rods",
       "🎯 Long Rod",
@@ -519,7 +481,7 @@ local titems = tp:CreateDropdown({
    Name = "📦 Select Item",
    Options = {
       "📍 GPS", 
-      "🎣 Fish Radar", 
+      "🔘 Fish Radar", 
       "🤿 Diving Gear", 
       "🐟 Bait Crate",
       "🦈 Quality Bait Crate", 
@@ -538,7 +500,7 @@ local titems = tp:CreateDropdown({
 
          if selectedItem == "📍 GPS" then
             teleportPlayer(515, 151, 285)
-         elseif selectedItem == "🎣 Fish Radar" then
+         elseif selectedItem == "🔘 Fish Radar" then
             teleportPlayer(365, 136, 275)
          elseif selectedItem == "🤿 Diving Gear" then
             teleportPlayer(370, 136, 250)
