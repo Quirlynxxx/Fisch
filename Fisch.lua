@@ -4,7 +4,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.533",
+   Name = "[🍄] Fisch | Version 0.0.534",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -536,7 +536,7 @@ local tpptoboat = tp:CreateButton({
          local boat = boats:FindFirstChildWhichIsA("Model")
          if boat then
             local seat = boat:FindFirstChild("owner")
-            if seat and seat:IsA("Seat") then
+            if seat then
                teleportPlayer(seat.Position)
             else
                Rayfield:Notify({
@@ -615,16 +615,6 @@ local teleportp = tp:CreateButton({
 })
 
 --Misc
-local freezep = misc:CreateToggle({
-   Name = "❄ Freeze Player",
-   CurrentValue = false,
-   Flag = "freezep",
-   Callback = function(AfreezepV)
-         _G.freezep = AfreezepV
-         FreezePlayer()
-   end,
-})
-
 local Section = misc:CreateSection("👁 Visual")
 local espisonadet = misc:CreateToggle({
    Name = "👁 Esp Isonade",
@@ -641,6 +631,17 @@ local espisonadet = misc:CreateToggle({
 })
 
 local Section = misc:CreateSection("🙍‍♂️ Player")
+local freezep = misc:CreateToggle({
+   Name = "❄ Freeze Player",
+   CurrentValue = false,
+   Flag = "freezep",
+   Callback = function(AfreezepV)
+         _G.freezep = AfreezepV
+         FreezePlayer()
+   end,
+})
+local Divider = misc:CreateDivider()
+
 local doxygen = misc:CreateToggle({
    Name = "🛑 Disable Oxygen",
    CurrentValue = false,
