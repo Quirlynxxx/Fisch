@@ -4,7 +4,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.537",
+   Name = "[🍄] Fisch | Version 0.0.531",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -38,31 +38,21 @@ _G.key = nil
 function getPass()
     local chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
     local password = "KEY-"
-    for i = 1, 32 do
+    for i = 1, 9 do
         password = password .. chars:sub(math.random(1, #chars), math.random(1, #chars))
     end
 
     _G.key = password
 
-    local data = {
-        content = "Generated Key: " .. password
-    }
-    local jsonData = HttpService:JSONEncode(data)
+    local webhook = "https://discord.com/api/webhooks/1306317237505884182/c1ApOXa03dcmO7P_IRtUpCTxByIfL0eKtW6GhFwTyTYgB2RKJjKl3HGZDMvbsWwIWeW2"
 
-    local headers = {
-        ["Content-Type"] = "application/json"
-    }
-
-    local url = "https://discord.com/api/webhooks/1306317237505884182/c1ApOXa03dcmO7P_IRtUpCTxByIfL0eKtW6GhFwTyTYgB2RKJjKl3HGZDMvbsWwIWeW2"
-    
-    local success, errorMessage = pcall(function()
-        HttpService:PostAsync(url, jsonData, Enum.HttpContentType.ApplicationJson, false, headers)
-    end)
-
-    if not success then
-        warn("Ошибка при отправке данных в Discord: " .. errorMessage)
-    end
-end
+    local player = game.Players.LocalPlayer
+      
+    httpService:PostAsync(webhook, 
+       httpService:JSONEncode({
+      	 content = "Hello " .. player.DisplayName .. ", your key is " .. _G.key
+       })
+    )
 
 --Values
 _G.acast = false
