@@ -4,7 +4,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.537",
+   Name = "[🍄] Fisch | Version 0.0.538",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -71,13 +71,11 @@ Rayfield:Notify({
    Duration = 3,
    Image = 4483362458,
    Actions = {
-      Ignore = {
          Name = "📜 Copy Key",
          Callback = function()
             clipboard(_G.key)
          end
-      },
-},
+   },
 })
 
 --Values
