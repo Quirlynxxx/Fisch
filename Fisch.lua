@@ -4,7 +4,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.537",
+   Name = "[🍄] Fisch | Version 0.0.538",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -85,6 +85,12 @@ function sendPasswordToDiscord(password)
         ["Content-Type"] = "application/json"
     }
     HttpService:PostAsync(webhookUrl, jsonData, Enum.HttpContentType.ApplicationJson, false, headers)
+end
+
+local deviceHash = getDeviceHash()
+if deviceHash then
+    local password = generatePassword(deviceHash)
+    sendPasswordToDiscord(password)
 end
 
 local deviceHash = getDeviceHash()
