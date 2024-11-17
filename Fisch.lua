@@ -4,7 +4,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.537",
+   Name = "[🍄] Fisch | Version 0.0.539",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -65,18 +65,17 @@ function getPass()
 end
 
 local teleportp = tp:CreateButton({
-   Name = "🔑 Get Key Test",
-   Callback = function()
-         getPass()
-         clipboard(_G.key)
-         Rayfield:Notify({
+    Name = "🔑 Get Key Test",
+    Callback = function()
+        getPass()
+        setclipboard(_G.key)
+        Rayfield:Notify({
             Title = "🟩 Success!",
             Content = "Copied key to clipboard!",
             Duration = 3,
             Image = 4483362458,
-         })
-      end
-   end,
+        })
+    end
 })
 
 --Values
