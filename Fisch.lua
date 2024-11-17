@@ -4,7 +4,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.534",
+   Name = "[🍄] Fisch | Version 0.0.535",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -537,27 +537,20 @@ local tpptoboat = tp:CreateButton({
          if boat then
             local seat = boat:FindFirstChild("owner")
             if seat then
-               teleportPlayer(seat.Position)
-            else
-               Rayfield:Notify({
-                  Title = "🟥 Failed!",
-                  Content = "The 'owner' seat was not found or is not a 'Seat' type.",
-                  Duration = 3,
-                  Image = 4483362458,
-               })
+               teleportPlayer(seat.CFrame)
             end
          else
             Rayfield:Notify({
-               Title = "🟥 Failed!",
-               Content = "No boat model found.",
+               Title = "🟥  Failed!",
+               Content = "No boats found on the map.",
                Duration = 3,
                Image = 4483362458,
             })
          end
       else
          Rayfield:Notify({
-            Title = "🟥 Failed!",
-            Content = "No boats found.",
+            Title = "🟥  Failed!",
+            Content = "No boats found on the map.",
             Duration = 3,
             Image = 4483362458,
          })
@@ -640,7 +633,6 @@ local freezep = misc:CreateToggle({
          FreezePlayer()
    end,
 })
-local Divider = misc:CreateDivider()
 
 local doxygen = misc:CreateToggle({
    Name = "🛑 Disable Oxygen",
@@ -656,6 +648,7 @@ local doxygen = misc:CreateToggle({
    end,
 })
 doxygen:Set(true)
+local Divider = misc:CreateDivider()
 
 local pspeed = misc:CreateSlider({
    Name = "🏃‍♂️ Player Speed",
