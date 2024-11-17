@@ -530,8 +530,8 @@ local tpptoboat = tp:CreateButton({
    Name = "🚤 Teleport to my boat",
    Callback = function()
       local player = game.Players.LocalPlayer
-      local displayName = player.DisplayName
-      local boats = workspace.active.boats:FindFirstChild(displayName)
+      local name = player.Name
+      local boats = workspace.active.boats:FindFirstChild(name)
       if boats then
          local boat = boats:FindFirstChildWhichIsA("Model")
          if boat then
