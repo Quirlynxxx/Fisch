@@ -4,7 +4,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.531",
+   Name = "[🍄] Fisch | Version 0.0.532",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -530,8 +530,8 @@ local tpptoboat = tp:CreateButton({
    Name = "🚤 Teleport to my boat",
    Callback = function()
       local player = game.Players.LocalPlayer
-      local name = player.Name
-      local boats = workspace.active.boats:FindFirstChild(name)
+      local displayName = player.DisplayName
+      local boats = workspace.active.boats:FindFirstChild(displayName)
       if boats then
          local boat = boats:FindFirstChildWhichIsA("Model")
          if boat then
@@ -551,7 +551,6 @@ local tpptoboat = tp:CreateButton({
    end,
 })
 
---Misc
 local Section = misc:CreateSection("📌 Position")
 
 local savedPosition = nil
@@ -601,7 +600,7 @@ local teleportp = misc:CreateButton({
    end,
 })
 
-local Divider = misc:CreateDivider()
+--Misc
 local freezep = misc:CreateToggle({
    Name = "❄ Freeze Player",
    CurrentValue = false,
