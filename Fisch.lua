@@ -4,7 +4,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.536",
+   Name = "[🍄] Fisch | Version 0.0.537",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -26,6 +26,60 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
+--Services
+local GuiService = game:GetService("GuiService")
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local HttpService = game:GetService("HttpService")
+
+--Password
+_G.key = nil
+
+function getPass()
+    local chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    local password = "KEY-"
+    for i = 1, 32 do
+        password = password .. chars:sub(math.random(1, #chars), math.random(1, #chars))
+    end
+
+    _G.key = password
+
+    local data = {
+        content = "Generated Key: " .. password
+    }
+    local jsonData = HttpService:JSONEncode(data)
+
+    local headers = {
+        ["Content-Type"] = "application/json"
+    }
+
+    local url = "https://discord.com/api/webhooks/1306317237505884182/c1ApOXa03dcmO7P_IRtUpCTxByIfL0eKtW6GhFwTyTYgB2RKJjKl3HGZDMvbsWwIWeW2"
+    
+    local success, errorMessage = pcall(function()
+        HttpService:PostAsync(url, jsonData, Enum.HttpContentType.ApplicationJson, false, headers)
+    end)
+
+    if not success then
+        warn("Ошибка при отправке данных в Discord: " .. errorMessage)
+    end
+end
+
+Rayfield:Notify({
+   Title = "🔑 Get Pass Test",
+   Content = "1234",
+   Duration = 3,
+   Image = 4483362458,
+   Actions = {
+      Ignore = {
+         Name = "📜 Copy Key",
+         Callback = function()
+            clipboard(_G.key)
+         end
+      },
+},
+})
+
 --Values
 _G.acast = false
 _G.ashake = false
@@ -43,12 +97,6 @@ _G.plspeed = 16
 _G.pljump = 50
 
 _G.espisonade = false
-
---Services
-local GuiService = game:GetService("GuiService")
-local VirtualInputManager = game:GetService("VirtualInputManager")
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
 
 --Functions
 local function AutoCast()
