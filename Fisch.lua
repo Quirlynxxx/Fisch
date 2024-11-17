@@ -4,7 +4,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.53",
+   Name = "[🍄] Fisch | Version 0.0.531",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -535,15 +535,10 @@ local tpptoboat = tp:CreateButton({
       if boats then
          local boat = boats:FindFirstChildWhichIsA("Model")
          if boat then
-            local pos = boat.PrimaryPart.Position
-            teleportPlayer(pos)
-         else
-            Rayfield:Notify({
-               Title = "🟥 Failed!",
-               Content = "Could not find a valid boat model.",
-               Duration = 3,
-               Image = 4483362458,
-            })
+            local seat = boat:FindFirstChild("owner")
+            if seat and seat:IsA("Seat") then
+               teleportPlayer(seat.Position)
+            end
          end
       else
          Rayfield:Notify({
