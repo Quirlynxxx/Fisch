@@ -337,33 +337,11 @@ local function teleportPlayer(x, y, z)
 end
 
 --Tabs
-local home = Window:CreateTab("Main", "house")
 local ma = Window:CreateTab("Fisching", "fish")
 local tp = Window:CreateTab("Teleport", "earth")
 local appr = Window:CreateTab("Appraise", "search")
 local misc = Window:CreateTab("Misc", "hammer")
 local setting = Window:CreateTab("Settings", "bolt")
-
---Home
-local Section = home:CreateSection("📰 News")
-local news = home:CreateParagraph({
-    Title = "| Fisch 0.0.54 script update! |",
-    Content = "~ Added Load config\n" ..
-              "~ Added Appraise tab (Not working)\n" ..
-              "~ Added new Teleport mode: Tween\n" ..
-              "~ Added new Cast mode: Mouse\n" ..
-              "~ Added new Shake mode: Mouse\n" ..
-              "~ Added new Shake speed: Fast or Normal\n" ..
-              "~ Fixed Merchant\n" ..
-              "~ Fixed ESP for Isonade"
-})
-
-local Section = home:CreateSection("🔨 Creators")
-local creators = home:CreateParagraph({
-    Title = "🐟 Made by:",
-    Content = "Kirymeww | Coder" ..
-              "Linkiss | Coder"
-})
 
 --Main
 local Section = ma:CreateSection("🎣 Auto Cast")
