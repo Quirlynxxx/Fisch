@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54_fix27",
+   Name = "[🍄] Fisch | Version 0.0.54_fix28",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -163,8 +163,16 @@ local function clickWithCursor()
     end
 end
 
+local function GetShakeSpeed()
+   if _G.ashakespeed then
+      return 0.01
+   else
+      return 1
+   end
+end
+
 local function AutoShake()
-    local shakeSpeed = _G.ashakespeed and 1 or 0.01
+    local shakeSpeed = GetShakeSpeed()
     while _G.ashake do
         if _G.ashakemode then
             navigateAndClick()
