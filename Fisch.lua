@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.53",
+   Name = "[🍄] Fisch | Version 0.0.54",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -42,6 +42,7 @@ _G.afixmap = false
 _G.afindchest = false
 
 _G.areelmode = nil
+_G.ashakemode = nil
 _G.smerchant = nil
 
 _G.plspeed = 16
@@ -97,10 +98,31 @@ local function navigateAndClick()
     end
 end
 
+local function clickWithCursor()
+    local player = Players.LocalPlayer
+    local button = player.PlayerGui:FindFirstChild("shakeui") and player.PlayerGui.shakeui:FindFirstChild("safezone") and player.PlayerGui.shakeui.safezone:FindFirstChild("button")
+
+    if button then
+        local buttonPosition = button.AbsolutePosition
+        local buttonSize = button.AbsoluteSize
+        local centerX = buttonPosition.X + (buttonSize.X / 2)
+        local centerY = buttonPosition.Y + (buttonSize.Y / 2)
+
+        VirtualInputManager:SendMouseMove(centerX, centerY)
+        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, true, nil, 0)
+        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, false, nil, 0)
+    end
+end
+
 local function AutoShake()
     while _G.ashake do
-        navigateAndClick()
-        wait(0.01)
+        if _G.ashakemode then
+            navigateAndClick()
+            wait(0.01)
+        else
+            clickWithCursor()
+            wait(0.01)
+        end
     end
 end
 
@@ -263,6 +285,21 @@ local acast = ma:CreateToggle({
 })
 
 local Section = ma:CreateSection("🔀 Auto Shake")
+local  = ma:CreateDropdown({
+   Name = "🔀 Select Shake Mode",
+   Options = {"⌨ KeyCode", "🖱 Mouse"},
+   CurrentOption = {"⌨ KeyCode"},
+   MultipleOptions = false,
+   Flag = "ashakemode",
+   Callback = function(Options)
+      if Options[1] == "⌨ KeyCode" then
+         _G.ashakemode = true
+      else
+         _G.ashakemode = false
+      end
+   end,
+})
+
 local ashake = ma:CreateToggle({
    Name = "🔀 Auto Shake",
    CurrentValue = false,
@@ -304,20 +341,35 @@ local smerchant = ma:CreateDropdown({
    Name = "👨‍🦰 Select Merchant",
    Options = {
       "🌲 Marc", "🏖 Matt", "🌞 Max", "❄️ Mike", 
-      "⚰️ Cort", "🌊 Maverick", "🌌 Mel", "⛏ The Depth"
+      "⚛ Cort", "🌊 Maverick", "🌌 Mel", "⛏ Marc (The Depths)"
    },
    CurrentOption = "",  
    MultipleOptions = false,
    Flag = "smerchant",
    Callback = function(Options)
-      local selectedMerchant = Options
-      local merchantName = selectedMerchant:match("%s*(.+)")
-      _G.smerchant = merchantName .. " Merchant"
+      local selectedMerchant = Options[1]
+      if selectedMerchant == "🌲 Marc" then
+         _G.smerchant = "Marc Merchant"
+      elseif selectedMerchant == "🏖 Matt" then
+         _G.smerchant = "Matt Merchant"
+      elseif selectedMerchant == "🌞 Max" then
+         _G.smerchant = "Max Merchant"
+      elseif selectedMerchant == "❄️ Mike" then
+         _G.smerchant = "Mike Merchant"
+      elseif selectedMerchant == "⚛ Cort" then
+         _G.smerchant = "Cort Merchant"
+      elseif selectedMerchant == "🌊 Maverick" then
+         _G.smerchant = "Maverick Merchant"
+      elseif selectedMerchant == "🌌 Mel" then
+         _G.smerchant = "Mel Merchant"
+      elseif selectedMerchant == "⛏ Marc (The Depths)" then
+         _G.smerchant = "The Depth Merchant"
+      end
    end,
 })
 
 local asell = ma:CreateToggle({
-   Name = "💰 Auto Sell",
+   Name = "💰 Auto Sell All",
    CurrentValue = false,
    Flag = "asell",
    Callback = function(AsellV)
@@ -511,15 +563,15 @@ local titems = tp:CreateDropdown({
          elseif selectedItem == "🦀 Crab Cage" then
             teleportPlayer(476, 151, 231)
          elseif selectedItem == "🈳 Tidebreaker" then
-            teleportPlayer(-1640, -214, -2851)
+            teleportPlayer(-1640, -214, -2851.11)
          elseif selectedItem == "⚓ Coral Geode" then
-            teleportPlayer(-1640, -214, -2851)
+            teleportPlayer(-1640, -214, -2851.12)
          elseif selectedItem == "👣 Flippers" then
-            teleportPlayer(-1640, -214, -2851)
+            teleportPlayer(-1640, -214, -2851.13)
          elseif selectedItem == "🪂 Glider" then
-            teleportPlayer(-1640, -214, -2851)
+            teleportPlayer(-1640, -214, -2851.14)
          elseif selectedItem == "🎺 Conception Conch" then
-            teleportPlayer(-1632, -214, -2862)
+            teleportPlayer(-1632, -214, -2862.15)
          end
    end,
 })
@@ -705,5 +757,28 @@ local themes = setting:CreateDropdown({
          elseif selectedTheme == "🌿 Serenity" then
             Window.ModifyTheme('Serenity')
          end
+   end,
+})
+
+local CfgNote = setting:CreateParagraph({Title = "💡 Note", Content = "The configuration saves itself AUTOMATICALLY and loads from the PREVIOUS session. I have nothing to do with it. Please refer to the creator of the Rayfield library regarding the configuration system."})
+local loadcfg = setting:CreateButton({
+   Name = "🔶 Load Config",
+   Callback = function()
+      local success = Rayfield:LoadConfiguration()
+      if success then
+         Rayfield:Notify({
+            Title = "🟩 Success!",
+            Content = "Config loaded!",
+            Duration = 3,
+            Image = 4483362458,
+         })
+      else
+         Rayfield:Notify({
+            Title = "🟥 Failed!",
+            Content = "Failed to load config.",
+            Duration = 5,
+            Image = 4483362458,
+         })
+      end
    end,
 })
