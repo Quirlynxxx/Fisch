@@ -38,8 +38,6 @@ _G.areel = false
 _G.freezep = false
 _G.asell = false
 _G.asellinhand = false
-_G.afixmap = false
-_G.afindchest = false
 
 _G.areelmode = false
 _G.ashakemode = true
@@ -49,7 +47,6 @@ _G.smerchant = nil
 
 _G.plspeed = 16
 _G.pljump = 50
-_G.initpos = nil
 
 _G.espisonade = false
 
@@ -253,35 +250,6 @@ local function FreezePlayer()
       humanoid.WalkSpeed = _G.plspeed
       humanoid.JumpPower = _G.pljump
    end
-end
-
-local function CastSavePosition()
-   local player = Players.LocalPlayer
-   local character = player.Character or player.CharacterAdded:Wait()
-   local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-   local humanoid = character:FindFirstChildOfClass("Humanoid")
-   local ntfplcastsavepos = false
-
-   while _G.freezep do
-      if _G.initpos then
-         humanoidRootPart.CFrame = _G.initpos
-         humanoid.WalkSpeed = 0
-         humanoid.JumpPower = 0
-         task.wait(0.01)
-      elseif not ntfplcastsavepos then
-         Rayfield:Notify({
-            Title = "🟥 Failed!",
-            Content = "No saved position",
-            Duration = 3,
-            Image = 4483362458,
-         })
-         ntfplcastsavepos = true
-      end
-   end
-
-   humanoid.WalkSpeed = _G.plspeed
-   humanoid.JumpPower = _G.pljump
-   ntfplcastsavepos = false
 end
 
 local function Espisonade()
@@ -705,7 +673,6 @@ local savep = tp:CreateButton({
       local player = game.Players.LocalPlayer
       if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
          savedPosition = player.Character.HumanoidRootPart.Position
-         _G.initpos = savedPosition
          Rayfield:Notify({
          Title = "🟩 Success!",
          Content = "Position saved!",
@@ -743,16 +710,6 @@ local teleportp = tp:CreateButton({
          Image = 4483362458,
       })
       end
-   end,
-})
-
-local castposp = tp:CreateToggle({
-   Name = "🟦 Cast Saved Position",
-   CurrentValue = false,
-   Flag = "castposp",
-   Callback = function(AcastpospV)
-         _G.castposp = AcastpospV
-         CastSavePosition()
    end,
 })
 
