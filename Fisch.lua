@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54",
+   Name = "[🍄] Fisch | Version 0.0.54.3",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -41,8 +41,8 @@ _G.asellinhand = false
 _G.afixmap = false
 _G.afindchest = false
 
-_G.areelmode = nil
-_G.ashakemode = nil
+_G.areelmode = false
+_G.ashakemode = true
 _G.smerchant = nil
 
 _G.plspeed = 16
@@ -105,8 +105,8 @@ local function clickWithCursor()
     if button then
         local buttonPosition = button.AbsolutePosition
         local buttonSize = button.AbsoluteSize
-        local centerX = buttonPosition.X + (buttonSize.X / 2)
-        local centerY = buttonPosition.Y + (buttonSize.Y / 2)
+        local centerX = buttonPosition.X + (buttonSize.X / 2.5)
+        local centerY = buttonPosition.Y + (buttonSize.Y / 2.5)
         VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, true, nil, 0)
         VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, false, nil, 0)
     end
