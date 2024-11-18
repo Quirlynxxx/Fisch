@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54_fix9",
+   Name = "[🍄] Fisch | Version 0.0.54_fix10",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -46,8 +46,6 @@ _G.ashakemode = true
 _G.acastmode = true
 _G.smerchant = nil
 
-_G.usecast = false
-
 _G.plspeed = 16
 _G.pljump = 50
 
@@ -62,8 +60,6 @@ local function clickAndHoldCenterOfScreen()
     local centerX = screenWidth / 2
     local centerY = screenHeight / 2
 
-    if not _G.usecast then 
-        _G.usecast = true
         VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, true, player, 0)
         wait(2)
         VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, false, player, 0)
@@ -160,7 +156,6 @@ local function NormalReelGui()
     local playerbar = player.PlayerGui:FindFirstChild("reel") and player.PlayerGui.reel:FindFirstChild("bar") and player.PlayerGui.reel.bar:FindFirstChild("playerbar")
     
     if playerbar then
-        _G.usecast = false
         playerbar.Position = UDim2.new(0.5, 0, 0.5, 0)
         playerbar.Size = UDim2.new(1, 0, 1.3, 0)
     end
@@ -181,7 +176,6 @@ local function AutoReel()
         end
 
         if #args > 0 then
-            _G.usecast = false
             game:GetService("ReplicatedStorage").events.reelfinished:FireServer(unpack(args))
         end
         wait(0.2)
