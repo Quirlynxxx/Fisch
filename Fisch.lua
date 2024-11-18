@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54_fix21",
+   Name = "[🍄] Fisch | Version 0.0.54_fix22",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -448,7 +448,7 @@ local asellinhand = ma:CreateToggle({
 })
 
 --Teleport
-local Section = tp:CreateSection("🔰 Teleport Mode")
+local Section = tp:CreateSection("🌎 Locations")
 local tpmode = tp:CreateDropdown({
    Name = "🌎 Select Teleport Mode",
    Options = {"🟨 Instant", "🟩 Tween"},
@@ -463,8 +463,8 @@ local tpmode = tp:CreateDropdown({
       end
    end,
 })
+local Divider = tp:CreateDivider()
 
-local Section = tp:CreateSection("🌎 Locations")
 local tlocation = tp:CreateDropdown({
    Name = "🗺 Select Location",
    Options = {
@@ -797,6 +797,8 @@ local pfov = misc:CreateSlider({
 
 --Settings
 local Section = setting:CreateSection("⚙ Settings")
+local CfgNote = setting:CreateParagraph({Title = "💡 Note", Content = "The configuration saves itself AUTOMATICALLY and loads from the PREVIOUS session. I have nothing to do with it. Please refer to the creator of the Rayfield library regarding the configuration system."})
+
 local themes = setting:CreateDropdown({
    Name = "🎨 Select Theme",
    Options = {
@@ -837,7 +839,6 @@ local themes = setting:CreateDropdown({
    end,
 })
 
-local CfgNote = setting:CreateParagraph({Title = "💡 Note", Content = "The configuration saves itself AUTOMATICALLY and loads from the PREVIOUS session. I have nothing to do with it. Please refer to the creator of the Rayfield library regarding the configuration system."})
 local loadcfg = setting:CreateButton({
    Name = "🔶 Load Config",
    Callback = function()
