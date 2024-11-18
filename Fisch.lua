@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54_fix23",
+   Name = "[🍄] Fisch | Version 0.0.54_fix24",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -262,8 +262,9 @@ local function CastSavePosition()
       end
    end
 
-   humanoid.WalkSpeed = _G.plspeed or 16
-   humanoid.JumpPower = _G.pljump or 50
+   humanoid.WalkSpeed = _G.plspeed
+   humanoid.JumpPower = _G.pljump
+   ntfplcastsavepos = false
 end
 
 local function Espisonade()
@@ -728,7 +729,7 @@ local teleportp = tp:CreateButton({
    end,
 })
 
-local castposp = misc:CreateToggle({
+local castposp = tp:CreateToggle({
    Name = "🟦 Cast Saved Position",
    CurrentValue = false,
    Flag = "castposp",
