@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54_fix18",
+   Name = "[🍄] Fisch | Version 0.0.54_fix19",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -449,21 +449,6 @@ local asellinhand = ma:CreateToggle({
 
 --Teleport
 local Section = tp:CreateSection("🌎 Locations")
-local tpmode = tp:CreateDropdown({
-   Name = "🌎 Select Teleport Mode",
-   Options = {"🟨 Instant", "🟩 Tween"},
-   CurrentOption = {"🟨 Instant"},
-   MultipleOptions = false,
-   Flag = "tpmode",
-   Callback = function(Options)
-      if Options[1] == "🟨 Instant" then
-         _G.tpmode = true
-      else
-         _G.tpmode = false
-      end
-   end,
-})
-local Divider = tp:CreateDivider()
 
 local tlocation = tp:CreateDropdown({
    Name = "🗺 Select Location",
@@ -696,6 +681,22 @@ local teleportp = tp:CreateButton({
          Duration = 3,
          Image = 4483362458,
       })
+      end
+   end,
+})
+local Divider = tp:CreateDivider()
+
+local tpmode = tp:CreateDropdown({
+   Name = "🌎 Select Teleport Mode",
+   Options = {"🟨 Instant", "🟩 Tween"},
+   CurrentOption = {"🟨 Instant"},
+   MultipleOptions = false,
+   Flag = "tpmode",
+   Callback = function(Options)
+      if Options[1] == "🟨 Instant" then
+         _G.tpmode = true
+      else
+         _G.tpmode = false
       end
    end,
 })
