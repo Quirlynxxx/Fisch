@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54_fix22",
+   Name = "[🍄] Fisch | Version 0.0.54_fix23",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -49,6 +49,7 @@ _G.smerchant = nil
 
 _G.plspeed = 16
 _G.pljump = 50
+_G.initpos = nil
 
 _G.espisonade = false
 
@@ -235,6 +236,34 @@ local function FreezePlayer()
       humanoid.WalkSpeed = _G.plspeed
       humanoid.JumpPower = _G.pljump
    end
+end
+
+local function CastSavePosition()
+   local player = Players.LocalPlayer
+   local character = player.Character or player.CharacterAdded:Wait()
+   local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+   local humanoid = character:FindFirstChildOfClass("Humanoid")
+   local ntfplcastsavepos = false
+
+   while _G.freezep do
+      if _G.initpos then
+         humanoidRootPart.CFrame = _G.initpos
+         humanoid.WalkSpeed = 0
+         humanoid.JumpPower = 0
+         task.wait(0.01)
+      elseif not ntfplcastsavepos then
+         Rayfield:Notify({
+            Title = "🟥 Failed!",
+            Content = "No saved position",
+            Duration = 3,
+            Image = 4483362458,
+         })
+         ntfplcastsavepos = true
+      end
+   end
+
+   humanoid.WalkSpeed = _G.plspeed or 16
+   humanoid.JumpPower = _G.pljump or 50
 end
 
 local function Espisonade()
@@ -449,22 +478,6 @@ local asellinhand = ma:CreateToggle({
 
 --Teleport
 local Section = tp:CreateSection("🌎 Locations")
-local tpmode = tp:CreateDropdown({
-   Name = "🌎 Select Teleport Mode",
-   Options = {"🟨 Instant", "🟩 Tween"},
-   CurrentOption = {"🟨 Instant"},
-   MultipleOptions = false,
-   Flag = "tpmode",
-   Callback = function(Options)
-      if Options[1] == "🟨 Instant" then
-         _G.tpmode = true
-      else
-         _G.tpmode = false
-      end
-   end,
-})
-local Divider = tp:CreateDivider()
-
 local tlocation = tp:CreateDropdown({
    Name = "🗺 Select Location",
    Options = {
@@ -651,7 +664,21 @@ local titems = tp:CreateDropdown({
    end,
 })
 
-local Section = tp:CreateSection("📌 Position")
+local Section = tp:CreateSection("🔰 Other")
+local tpmode = tp:CreateDropdown({
+   Name = "🌎 Select Teleport Mode",
+   Options = {"🟨 Instant", "🟩 Tween"},
+   CurrentOption = {"🟨 Instant"},
+   MultipleOptions = false,
+   Flag = "tpmode",
+   Callback = function(Options)
+      if Options[1] == "🟨 Instant" then
+         _G.tpmode = true
+      else
+         _G.tpmode = false
+      end
+   end,
+})
 
 local savedPosition = nil
 local savep = tp:CreateButton({
@@ -660,6 +687,7 @@ local savep = tp:CreateButton({
       local player = game.Players.LocalPlayer
       if player and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
          savedPosition = player.Character.HumanoidRootPart.Position
+         _G.initpos = savedPosition
          Rayfield:Notify({
          Title = "🟩 Success!",
          Content = "Position saved!",
@@ -697,6 +725,16 @@ local teleportp = tp:CreateButton({
          Image = 4483362458,
       })
       end
+   end,
+})
+
+local castposp = misc:CreateToggle({
+   Name = "🟦 Cast Saved Position",
+   CurrentValue = false,
+   Flag = "castposp",
+   Callback = function(AcastpospV)
+         _G.castposp = AcastpospV
+         CastSavePosition()
    end,
 })
 
