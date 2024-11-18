@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54_fix28",
+   Name = "[🍄] Fisch | Version 0.0.54_fix29",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -41,7 +41,7 @@ _G.asellinhand = false
 
 _G.areelmode = false
 _G.ashakemode = true
-_G.ashakespeed = true
+_G.ashakemode = true
 _G.acastmode = true
 _G.tpmode = true
 _G.smerchant = nil
@@ -163,23 +163,22 @@ local function clickWithCursor()
     end
 end
 
-local function GetShakeSpeed()
-   if _G.ashakespeed then
-      return 0.01
-   else
-      return 1
-   end
-end
-
 local function AutoShake()
-    local shakeSpeed = GetShakeSpeed()
     while _G.ashake do
         if _G.ashakemode then
             navigateAndClick()
-            task.wait(shakeSpeed)
+            if _G.ashakespeed then
+                task.wait(0.01)
+            else
+                task.wait(1)
+            end
         else
             clickWithCursor()
-            task.wait(shakeSpeed)
+            if _G.ashakespeed then
+                task.wait(0.01)
+            else
+                task.wait(1)
+            end
         end
     end
 end
