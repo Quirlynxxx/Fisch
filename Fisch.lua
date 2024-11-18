@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54_fix12",
+   Name = "[🍄] Fisch | Version 0.0.54_fix13",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -54,14 +54,16 @@ _G.espisonade = false
 --Functions
 local function clickAndHoldCenterOfScreen()
     local player = game:GetService("Players").LocalPlayer
-    local screenWidth = game:GetService("Workspace").CurrentCamera.ViewportSize.X
-    local screenHeight = game:GetService("Workspace").CurrentCamera.ViewportSize.Y
+    local camera = game:GetService("Workspace").CurrentCamera
+    local screenWidth = camera.ViewportSize.X
+    local screenHeight = camera.ViewportSize.Y
     local shakeui = player.PlayerGui:FindFirstChild("shakeui")
-    
+    local reelui = player.PlayerGui:FindFirstChild("reel")
+
     local centerX = screenWidth / 2
     local centerY = screenHeight / 2
 
-    if not shakeui then
+    if not shakeui and not reelui and not _G.acast then
         VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, true, player, 0)
         task.wait(2)
         VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, false, player, 0)
@@ -260,10 +262,14 @@ local function Espisonade()
                textLabel.Text = "Isonade"
                billboardGui.Parent = isonade
 
+               -- Получаем координаты зоны Isonade
+               local position = isonade.Position
+               local coords = string.format("X: %.2f, Y: %.2f, Z: %.2f", position.X, position.Y, position.Z)
+
                if not notifiedIsonades[isonade] then
                   Rayfield:Notify({
                      Title = "🚩 Event",
-                     Content = "Isonade zone has spawned!",
+                     Content = "Isonade zone at " .. coords,
                      Duration = 3,
                      Image = 4483362458,
                   })
@@ -296,13 +302,14 @@ end
 --Tabs
 local ma = Window:CreateTab("Main", "fish")
 local tp = Window:CreateTab("Teleport", "earth")
+local appr = Window:CreateTab("Appraise", "search")
 local misc = Window:CreateTab("Misc", "hammer")
 local setting = Window:CreateTab("Settings", "bolt")
 
 --Main
 local Section = ma:CreateSection("🎣 Auto Cast")
 local acastmode = ma:CreateDropdown({
-   Name = "🎣 Select Reel Mode",
+   Name = "🎣 Select Cast Mode",
    Options = {"⚡ RemoteEvent", "🖱 Mouse"},
    CurrentOption = {"⚡ RemoteEvent"},
    MultipleOptions = false,
@@ -354,7 +361,7 @@ local ashake = ma:CreateToggle({
 
 local Section = ma:CreateSection("🔃 Auto Reel")
 local areelmode = ma:CreateDropdown({
-   Name = "🎣 Select Reel Mode",
+   Name = "🔃 Select Reel Mode",
    Options = {"🟩 Normal", "🟨 Instant"},
    CurrentOption = {"🟨 Instant"},
    MultipleOptions = false,
@@ -666,6 +673,8 @@ local teleportp = tp:CreateButton({
       end
    end,
 })
+
+local Section = appr:CreateSection("🔎 Coming soon...")
 
 --Misc
 local Section = misc:CreateSection("👁 Visual")
