@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54_fix29",
+   Name = "[🍄] Fisch | Version 0.0.54",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -337,11 +337,32 @@ local function teleportPlayer(x, y, z)
 end
 
 --Tabs
-local ma = Window:CreateTab("Main", "fish")
+local home = Window:CreateTab("Main", "house")
+local ma = Window:CreateTab("Fisching", "fish")
 local tp = Window:CreateTab("Teleport", "earth")
 local appr = Window:CreateTab("Appraise", "search")
 local misc = Window:CreateTab("Misc", "hammer")
 local setting = Window:CreateTab("Settings", "bolt")
+
+--Home
+local Section = home:CreateSection("📰 News")
+local news = home:CreateParagraph({
+    Title = "| Fisch 0.0.54 script update! |",
+    Content = "~ Added Load config\n" ..
+              "~ Added Appraise tab (Not working)\n" ..
+              "~ Added new Teleport mode: Tween\n" ..
+              "~ Added new Cast mode: Mouse\n" ..
+              "~ Added new Shake mode: Mouse\n" ..
+              "~ Added new Shake speed: Fast or Normal\n" ..
+              "~ Fixed Merchant\n" ..
+              "~ Fixed ESP for Isonade"
+})
+
+local creators = home:CreateParagraph({
+    Title = "🐟 Made by:",
+    Content = "Kirymeww | Coder" ..
+              "Linkiss | Coder" ..
+})
 
 --Main
 local Section = ma:CreateSection("🎣 Auto Cast")
@@ -836,9 +857,9 @@ local pfov = misc:CreateSlider({
 })
 
 --Settings
-local Section = setting:CreateSection("⚙ Settings")
 local CfgNote = setting:CreateParagraph({Title = "💡 Note", Content = "The configuration saves itself AUTOMATICALLY and loads from the PREVIOUS session. I have nothing to do with it. Please refer to the creator of the Rayfield library regarding the configuration system."})
 
+local Section = setting:CreateSection("⚙ Settings")
 local themes = setting:CreateDropdown({
    Name = "🎨 Select Theme",
    Options = {
@@ -882,21 +903,12 @@ local themes = setting:CreateDropdown({
 local loadcfg = setting:CreateButton({
    Name = "🔶 Load Config",
    Callback = function()
-      local success = Rayfield:LoadConfiguration()
-      if success then
+      Rayfield:LoadConfiguration()
          Rayfield:Notify({
             Title = "🟩 Success!",
             Content = "Config loaded!",
             Duration = 3,
             Image = 4483362458,
          })
-      else
-         Rayfield:Notify({
-            Title = "🟥 Failed!",
-            Content = "Failed to load config.",
-            Duration = 5,
-            Image = 4483362458,
-         })
-      end
    end,
 })
