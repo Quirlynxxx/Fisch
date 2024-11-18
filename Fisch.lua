@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54_fix25",
+   Name = "[🍄] Fisch | Version 0.0.54_fix26",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -62,10 +62,30 @@ local function clickAndHoldCenterOfScreen()
     local centerX = screenWidth / 2
     local centerY = screenHeight / 2
 
-    if not shakeui and not reelui then
-        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, true, player, 0)
-        task.wait(2)
-        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, false, player, 0)
+    local rod = nil
+
+    if player.Character and player.Character:FindFirstChildOfClass("Tool") then
+        rod = player.Character:FindFirstChildOfClass("Tool")
+    else
+        for _, item in ipairs(player.Backpack:GetChildren()) do
+            if item.Name:find("Rod") then
+                rod = item
+                break
+            end
+        end
+    end
+
+    if rod then
+        if rod.Parent ~= player.Character then
+            rod.Parent = player.Character
+        end
+
+        if not shakeui and not reelui then
+            local VirtualInputManager = game:GetService("VirtualInputManager")
+            VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, true, player, 0)
+            task.wait(2)
+            VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, false, player, 0)
+        end
     end
 end
 
@@ -131,23 +151,6 @@ end
 local function clickWithCursor()
     local player = Players.LocalPlayer
     local button = player.PlayerGui:FindFirstChild("shakeui") and player.PlayerGui.shakeui:FindFirstChild("safezone") and player.PlayerGui.shakeui.safezone:FindFirstChild("button")
-    local rod = nil
-
-      if player.Character and player.Character:FindFirstChildOfClass("Tool") then
-         rod = player.Character:FindFirstChildOfClass("Tool")
-      else
-         for _, item in ipairs(player.Backpack:GetChildren()) do
-            if item.Name:find("Rod") then
-               rod = item
-               break
-            end
-         end
-      end
-
-      if rod then
-         if rod.Parent ~= player.Character then
-            rod.Parent = player.Character
-         end
 
     if button then
         local bPos = button.AbsolutePosition
