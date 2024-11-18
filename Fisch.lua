@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54_fix26",
+   Name = "[🍄] Fisch | Version 0.0.54_fix27",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -41,6 +41,7 @@ _G.asellinhand = false
 
 _G.areelmode = false
 _G.ashakemode = true
+_G.ashakespeed = true
 _G.acastmode = true
 _G.tpmode = true
 _G.smerchant = nil
@@ -163,13 +164,14 @@ local function clickWithCursor()
 end
 
 local function AutoShake()
+    local shakeSpeed = _G.ashakespeed and 1 or 0.01
     while _G.ashake do
         if _G.ashakemode then
             navigateAndClick()
-            task.wait(0.01)
+            task.wait(shakeSpeed)
         else
             clickWithCursor()
-            task.wait(0.01)
+            task.wait(shakeSpeed)
         end
     end
 end
@@ -362,6 +364,21 @@ local acast = ma:CreateToggle({
 })
 
 local Section = ma:CreateSection("🔀 Auto Shake")
+local ashakespeed = ma:CreateDropdown({
+   Name = "⚡ Select Shake Speed",
+   Options = {"🟩 Fast", "🟨 Normal"},
+   CurrentOption = {"🟩 Fast"},
+   MultipleOptions = false,
+   Flag = "ashakespeed",
+   Callback = function(Options)
+      if Options[1] == "🟩 Fast" then
+         _G.ashakespeed = true
+      else
+         _G.ashakespeed = false
+      end
+   end,
+})
+
 local ashakemode = ma:CreateDropdown({
    Name = "🔀 Select Shake Mode",
    Options = {"⌨ KeyCode", "🖱 Mouse"},
