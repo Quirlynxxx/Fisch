@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54_fix14",
+   Name = "[🍄] Fisch | Version 0.0.54_fix15",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -44,6 +44,7 @@ _G.afindchest = false
 _G.areelmode = false
 _G.ashakemode = true
 _G.acastmode = true
+_G.tpmode = true
 _G.smerchant = nil
 
 _G.plspeed = 16
@@ -290,12 +291,21 @@ local function DelEspisonade()
    end
 end
 
-function teleportPlayer(x, y, z)
+local function teleportPlayer(x, y, z)
     local player = game.Players.LocalPlayer
     if player and player.Character then
         local character = player.Character
         local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
-        humanoidRootPart.CFrame = CFrame.new(x, y, z)
+
+        if _G.tpmode then
+            humanoidRootPart.CFrame = CFrame.new(x, y, z)
+        else
+            local tweenService = game:GetService("TweenService")
+            local tweenInfo = TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+            local goal = {CFrame = CFrame.new(x, y, z)}
+            local tween = tweenService:Create(humanoidRootPart, tweenInfo, goal)
+            tween:Play()
+        end
     end
 end
 
@@ -439,6 +449,21 @@ local asellinhand = ma:CreateToggle({
 
 --Teleport
 local Section = tp:CreateSection("🌎 Locations")
+local tpmode = tp:CreateDropdown({
+   Name = "🌎 Select Teleport Mode",
+   Options = {"🟨 Instant", "🟩 Tween"},
+   CurrentOption = {"🟨 Instant"},
+   MultipleOptions = false,
+   Flag = "tpmode",
+   Callback = function(Options)
+      if Options[1] == "🟨 Instant" then
+         _G.tpmode = true
+      else
+         _G.tpmode = false
+      end
+   end,
+})
+
 local tlocation = tp:CreateDropdown({
    Name = "🗺 Select Location",
    Options = {
