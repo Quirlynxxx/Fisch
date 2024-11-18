@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54_fix10",
+   Name = "[🍄] Fisch | Version 0.0.54_fix11",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -60,10 +60,9 @@ local function clickAndHoldCenterOfScreen()
     local centerX = screenWidth / 2
     local centerY = screenHeight / 2
 
-        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, true, player, 0)
-        wait(2)
-        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, false, player, 0)
-    end
+    VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, true, player, 0)
+    wait(2)
+    VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, false, player, 0)
 end
 
 local function AutoCastEvent()
