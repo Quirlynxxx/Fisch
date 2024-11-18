@@ -358,6 +358,7 @@ local news = home:CreateParagraph({
               "~ Fixed ESP for Isonade"
 })
 
+local Section = home:CreateSection("🔨 Creators")
 local creators = home:CreateParagraph({
     Title = "🐟 Made by:",
     Content = "Kirymeww | Coder" ..
