@@ -361,7 +361,7 @@ local news = home:CreateParagraph({
 local creators = home:CreateParagraph({
     Title = "🐟 Made by:",
     Content = "Kirymeww | Coder" ..
-              "Linkiss | Coder" ..
+              "Linkiss | Coder"
 })
 
 --Main
