@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54_fix15",
+   Name = "[🍄] Fisch | Version 0.0.54_fix16",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -463,6 +463,7 @@ local tpmode = tp:CreateDropdown({
       end
    end,
 })
+local Divider = misc:CreateDivider()
 
 local tlocation = tp:CreateDropdown({
    Name = "🗺 Select Location",
