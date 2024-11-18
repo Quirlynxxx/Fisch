@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54_fix4",
+   Name = "[🍄] Fisch | Version 0.0.54_fix5",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -105,15 +105,10 @@ local function clickWithCursor()
     if button then
         local bPos = button.AbsolutePosition
         local bSize = button.AbsoluteSize
-        local centerX = bPos.X + (bSize.X / 2)
-        local centerY = bPos.Y + (bSize.Y / 2)
-        
-        local screenPos = button.Parent:WorldToScreenPoint(button.Position)
-        centerX = screenPos.X
-        centerY = screenPos.Y
-        
-        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, true, nil, 0)
-        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, false, nil, 0)
+        local centerX = bPos.X + (bSize.X / 2) + 10
+        local centerY = bPos.Y + (bSize.Y / 2) + 10
+        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, true, player, 0)
+        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, false, player, 0)
     end
 end
 
