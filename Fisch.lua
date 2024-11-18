@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54_fix20",
+   Name = "[🍄] Fisch | Version 0.0.54_fix21",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -301,7 +301,7 @@ local function teleportPlayer(x, y, z)
             humanoidRootPart.CFrame = CFrame.new(x, y, z)
         else
             local tweenService = game:GetService("TweenService")
-            local tweenInfo = TweenInfo.new(13, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+            local tweenInfo = TweenInfo.new(10, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
             local goal = {CFrame = CFrame.new(x, y, z)}
             local tween = tweenService:Create(humanoidRootPart, tweenInfo, goal)
             tween:Play()
@@ -448,8 +448,23 @@ local asellinhand = ma:CreateToggle({
 })
 
 --Teleport
-local Section = tp:CreateSection("🌎 Locations")
+local Section = tp:CreateSection("🔰 Teleport Mode")
+local tpmode = tp:CreateDropdown({
+   Name = "🌎 Select Teleport Mode",
+   Options = {"🟨 Instant", "🟩 Tween"},
+   CurrentOption = {"🟨 Instant"},
+   MultipleOptions = false,
+   Flag = "tpmode",
+   Callback = function(Options)
+      if Options[1] == "🟨 Instant" then
+         _G.tpmode = true
+      else
+         _G.tpmode = false
+      end
+   end,
+})
 
+local Section = tp:CreateSection("🌎 Locations")
 local tlocation = tp:CreateDropdown({
    Name = "🗺 Select Location",
    Options = {
@@ -681,22 +696,6 @@ local teleportp = tp:CreateButton({
          Duration = 3,
          Image = 4483362458,
       })
-      end
-   end,
-})
-local Divider = tp:CreateDivider()
-
-local tpmode = tp:CreateDropdown({
-   Name = "🌎 Select Teleport Mode",
-   Options = {"🟨 Instant", "🟩 Tween"},
-   CurrentOption = {"🟨 Instant"},
-   MultipleOptions = false,
-   Flag = "tpmode",
-   Callback = function(Options)
-      if Options[1] == "🟨 Instant" then
-         _G.tpmode = true
-      else
-         _G.tpmode = false
       end
    end,
 })
