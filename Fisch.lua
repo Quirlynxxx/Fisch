@@ -299,7 +299,7 @@ local function Espisonade()
                      Title = "🚩 Event",
                      Content = "Isonade zone at " .. coords,
                      Duration = 3,
-                     Image = 4483362458,
+                     Image = "flag",
                   })
                   notifiedIsonades[isonade] = true
                end
@@ -704,14 +704,14 @@ local savep = tp:CreateButton({
          Title = "🟩 Success!",
          Content = "Position saved!",
          Duration = 3,
-         Image = 4483362458,
+         Image = "check",
       })
       else
          Rayfield:Notify({
          Title = "🟥 Failed!",
          Content = "Position not saved!",
          Duration = 3,
-         Image = 4483362458,
+         Image = "check",
       })
       end
    end,
@@ -727,14 +727,14 @@ local teleportp = tp:CreateButton({
          Title = "🟩 Success!",
          Content = "Teleported to saved position!",
          Duration = 3,
-         Image = 4483362458,
+         Image = "check",
       })
       else
          Rayfield:Notify({
          Title = "🟥 Failed!",
          Content = "No saved positions found!",
          Duration = 3,
-         Image = 4483362458,
+         Image = "circle-x",
       })
       end
    end,
@@ -887,7 +887,7 @@ local loadcfg = setting:CreateButton({
             Title = "🟩 Success!",
             Content = "Config loaded!",
             Duration = 3,
-            Image = 4483362458,
+            Image = "check",
          })
    end,
 })
