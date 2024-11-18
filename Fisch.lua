@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54_fix11",
+   Name = "[🍄] Fisch | Version 0.0.54_fix12",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -56,13 +56,16 @@ local function clickAndHoldCenterOfScreen()
     local player = game:GetService("Players").LocalPlayer
     local screenWidth = game:GetService("Workspace").CurrentCamera.ViewportSize.X
     local screenHeight = game:GetService("Workspace").CurrentCamera.ViewportSize.Y
+    local shakeui = player.PlayerGui:FindFirstChild("shakeui")
     
     local centerX = screenWidth / 2
     local centerY = screenHeight / 2
 
-    VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, true, player, 0)
-    wait(2)
-    VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, false, player, 0)
+    if not shakeui then
+        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, true, player, 0)
+        task.wait(2)
+        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, false, player, 0)
+    end
 end
 
 local function AutoCastEvent()
@@ -95,7 +98,7 @@ local function AutoCastEvent()
             rod.events.cast:FireServer(unpack(args))
          end
       end
-      wait(0.5)
+      task.wait(0.5)
    end
 end
 
@@ -103,10 +106,10 @@ local function AutoCast()
     while _G.acast do
         if _G.acastmode then
             AutoCastEvent()
-            wait(0.01)
+            task.wait(0.01)
         else
             clickAndHoldCenterOfScreen()
-            wait(0.01)
+            task.wait(0.01)
         end
     end
 end
@@ -142,10 +145,10 @@ local function AutoShake()
     while _G.ashake do
         if _G.ashakemode then
             navigateAndClick()
-            wait(0.01)
+            task.wait(0.01)
         else
             clickWithCursor()
-            wait(0.01)
+            task.wait(0.01)
         end
     end
 end
@@ -177,7 +180,7 @@ local function AutoReel()
         if #args > 0 then
             game:GetService("ReplicatedStorage").events.reelfinished:FireServer(unpack(args))
         end
-        wait(0.2)
+        task.wait(0.2)
     end
 end
 
@@ -189,7 +192,7 @@ local function AutoSell()
             merchant.merchant.sellall:InvokeServer()
          end
       end
-      wait(0.1)
+      task.wait(0.1)
    end
 end
 
@@ -201,7 +204,7 @@ local function AutoSellInHand()
             merchant.merchant.sell:InvokeServer()
          end
       end
-      wait(0.2)
+      task.wait(0.2)
    end
 end
 
@@ -222,7 +225,7 @@ local function FreezePlayer()
          end
          player.Character.HumanoidRootPart.CFrame = initialCFrame
       end
-      wait(0.01)
+      task.wait(0.01)
    end
 
    if humanoid then
@@ -269,7 +272,7 @@ local function Espisonade()
             end
          end
       end
-      wait(1)
+      task.wait(1)
    end
 end
 
