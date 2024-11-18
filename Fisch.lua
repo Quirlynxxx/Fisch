@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54_fix19",
+   Name = "[🍄] Fisch | Version 0.0.54_fix20",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -301,7 +301,7 @@ local function teleportPlayer(x, y, z)
             humanoidRootPart.CFrame = CFrame.new(x, y, z)
         else
             local tweenService = game:GetService("TweenService")
-            local tweenInfo = TweenInfo.new(6, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+            local tweenInfo = TweenInfo.new(13, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
             local goal = {CFrame = CFrame.new(x, y, z)}
             local tween = tweenService:Create(humanoidRootPart, tweenInfo, goal)
             tween:Play()
