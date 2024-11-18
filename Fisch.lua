@@ -43,7 +43,10 @@ _G.afindchest = false
 
 _G.areelmode = false
 _G.ashakemode = true
+_G.acastmode = true
 _G.smerchant = nil
+
+_G.usecast = false
 
 _G.plspeed = 16
 _G.pljump = 50
@@ -51,13 +54,24 @@ _G.pljump = 50
 _G.espisonade = false
 
 --Functions
-local function AutoCast()
-   while _G.acast do
-      local args = {
-         [1] = 100,
-         [2] = 1
-      }
+local function clickAndHoldCenterOfScreen()
+    local player = game:GetService("Players").LocalPlayer
+    local screenWidth = game:GetService("Workspace").CurrentCamera.ViewportSize.X
+    local screenHeight = game:GetService("Workspace").CurrentCamera.ViewportSize.Y
+    
+    local centerX = screenWidth / 2
+    local centerY = screenHeight / 2
 
+    if not _G.usecast then 
+        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, true, player, 0)
+        wait(2)
+        VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, false, player, 0)
+        _G.usecast = true
+    end
+end
+
+local function AutoCastEvent()
+   while _G.acast do
       local player = game.Players.LocalPlayer
       local rod = nil
 
@@ -77,12 +91,29 @@ local function AutoCast()
             rod.Parent = player.Character
          end
 
+      local args = {
+         [1] = 100,
+         [2] = 1
+      }
+
          if rod:FindFirstChild("events") and rod.events:FindFirstChild("cast") then
             rod.events.cast:FireServer(unpack(args))
          end
       end
       wait(0.5)
    end
+end
+
+local function AutoCast()
+    while _G.acast do
+        if _G.acastmode then
+            AutoCastEvent()
+            wait(0.01)
+        else
+            clickAndHoldCenterOfScreen()
+            wait(0.01)
+        end
+    end
 end
 
 local function navigateAndClick()
@@ -131,6 +162,7 @@ local function NormalReelGui()
     if playerbar then
         playerbar.Position = UDim2.new(0.5, 0, 0.5, 0)
         playerbar.Size = UDim2.new(1, 0, 1.3, 0)
+        _G.usecast = false
     end
 end
 
@@ -150,6 +182,7 @@ local function AutoReel()
 
         if #args > 0 then
             game:GetService("ReplicatedStorage").events.reelfinished:FireServer(unpack(args))
+            _G.usecast = false
         end
         wait(0.2)
     end
@@ -272,6 +305,21 @@ local setting = Window:CreateTab("Settings", "bolt")
 
 --Main
 local Section = ma:CreateSection("🎣 Auto Cast")
+local acastmode = ma:CreateDropdown({
+   Name = "🎣 Select Reel Mode",
+   Options = {"⚡ RemoteEvent", "🖱 Mouse"},
+   CurrentOption = {"⚡ RemoteEvent"},
+   MultipleOptions = false,
+   Flag = "acastmode",
+   Callback = function(Options)
+      if Options[1] == "⚡ RemoteEvent" then
+         _G.acastmode = true
+      else
+         _G.acastmode = false
+      end
+   end,
+})
+
 local acast = ma:CreateToggle({
    Name = "🎣 Auto Cast",
    CurrentValue = false,
