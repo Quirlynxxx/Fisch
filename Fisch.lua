@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.54",
+   Name = "[🍄] Fisch | Version 0.0.55",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -836,8 +836,6 @@ local pfov = misc:CreateSlider({
 })
 
 --Settings
-local CfgNote = setting:CreateParagraph({Title = "💡 Note", Content = "The configuration saves itself AUTOMATICALLY and loads from the PREVIOUS session. I have nothing to do with it. Please refer to the creator of the Rayfield library regarding the configuration system."})
-
 local Section = setting:CreateSection("⚙ Settings")
 local themes = setting:CreateDropdown({
    Name = "🎨 Select Theme",
@@ -876,18 +874,5 @@ local themes = setting:CreateDropdown({
          elseif selectedTheme == "🌿 Serenity" then
             Window.ModifyTheme('Serenity')
          end
-   end,
-})
-
-local loadcfg = setting:CreateButton({
-   Name = "🔶 Load Config",
-   Callback = function()
-      Rayfield:LoadConfiguration()
-         Rayfield:Notify({
-            Title = "🟩 Success!",
-            Content = "Config loaded!",
-            Duration = 3,
-            Image = "check",
-         })
    end,
 })
