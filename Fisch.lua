@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.55_fix4",
+   Name = "[🍄] Fisch | Version 0.0.55_fix5",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -776,7 +776,7 @@ local apprmutation = appr:CreateDropdown({
       _G.apprmutation = selectedMutation:gsub(".* ", "")
          Rayfield:Notify({
          Title = "🟨 Test",
-         Content = "Mutation selected" .._G.apprmutation,
+         Content = "Mutation selected: " .._G.apprmutation,
          Duration = 3,
          Image = "circle-x",
       })
@@ -793,7 +793,7 @@ local cweightappr = appr:CreateInput({
          _G.apprweight = Text
          Rayfield:Notify({
          Title = "🟨 Test",
-         Content = "Weight inputed" .._G.apprweight,
+         Content = "Weight inputed: " .._G.apprweight,
          Duration = 3,
          Image = "circle-x",
       })
