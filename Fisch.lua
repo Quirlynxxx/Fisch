@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.55",
+   Name = "[🍄] Fisch | Version 0.0.55_fix1",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -41,7 +41,7 @@ _G.asellinhand = false
 
 _G.areelmode = false
 _G.ashakemode = true
-_G.ashakemode = true
+_G.ashakespeed = true
 _G.acastmode = true
 _G.tpmode = true
 _G.smerchant = nil
@@ -50,6 +50,11 @@ _G.plspeed = 16
 _G.pljump = 50
 
 _G.espisonade = false
+
+_G.apprwaight = nil
+_G.apprmutation = nil
+_G.apprshiny = nil
+_G.apprsparkling = nil
 
 --Functions
 local function clickAndHoldCenterOfScreen()
@@ -84,7 +89,7 @@ local function clickAndHoldCenterOfScreen()
         if not shakeui and not reelui then
             local VirtualInputManager = game:GetService("VirtualInputManager")
             VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, true, player, 0)
-            task.wait(2)
+            task.wait(1)
             VirtualInputManager:SendMouseButtonEvent(centerX, centerY, 0, false, player, 0)
         end
     end
@@ -170,14 +175,14 @@ local function AutoShake()
             if _G.ashakespeed then
                 task.wait(0.01)
             else
-                task.wait(1)
+                task.wait(0.6)
             end
         else
             clickWithCursor()
             if _G.ashakespeed then
                 task.wait(0.01)
             else
-                task.wait(1)
+                task.wait(0.6)
             end
         end
     end
@@ -740,6 +745,7 @@ local teleportp = tp:CreateButton({
    end,
 })
 
+--Appraise
 local Section = appr:CreateSection("🔎 Coming soon...")
 
 --Misc
