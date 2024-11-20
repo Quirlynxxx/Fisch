@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.55_fix4",
+   Name = "[🍄] Fisch | Version 0.0.55_fix5",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -51,10 +51,13 @@ _G.pljump = 50
 
 _G.espisonade = false
 
+_G.aappr = false
 _G.apprweight = nil
 _G.apprmutation = nil
-_G.apprshiny = nil
-_G.apprsparkling = nil
+_G.apprshiny = false
+_G.apprsparkling = false
+_G.apprbig = false
+_G.apprgiant = false
 
 --Functions
 local function clickAndHoldCenterOfScreen()
@@ -339,6 +342,45 @@ local function teleportPlayer(x, y, z)
         end
     end
 end
+
+local function AutoAppraise()
+   while _G.aappr do
+       local character = player.Character or player.CharacterAdded:Wait()
+       local backpack = player:WaitForChild("Backpack")
+   
+       local function checkForFish(tool)
+           if tool:IsA("Tool") and tool:FindFirstChild("link") and tool.link:IsA("StringValue") then
+               local fishId = tool.link.Value
+               local inventory = ReplicatedStorage:WaitForChild("playerstats"):WaitForChild(player.Name):WaitForChild("Inventory")
+   
+               if inventory:FindFirstChild(fishId) then
+                   Rayfield:Notify({
+                       Title = "🟩 Fish Found",
+                       Content = "Fish " .. fishId .. " was found in the inventory!",
+                       Duration = 3,
+                       Image = "check-circle",
+                   })
+               else
+                   Rayfield:Notify({
+                       Title = "🟥 Fish Not Found",
+                       Content = "Fish " .. fishId .. " is not in the inventory!",
+                       Duration = 3,
+                       Image = "circle-x",
+                   })
+               end
+           end
+       end
+   
+       for _, tool in ipairs(backpack:GetChildren()) do
+           if tool:IsA("Tool") then
+               tool.Equipped:Connect(function()
+                   checkForFish(tool)
+               end)
+           end
+       end
+   
+       task.wait(0.1)
+   end
 
 --Tabs
 local ma = Window:CreateTab("Fisching", "fish")
@@ -797,6 +839,16 @@ local cweightappr = appr:CreateInput({
          Duration = 3,
          Image = "circle-x",
       })
+   end,
+})
+
+local aappr = appr:CreateToggle({
+   Name = "🔎 Auto Appraise",
+   CurrentValue = false,
+   Flag = "aappr",
+   Callback = function(AapprV)
+         _G.aappr = AapprV
+         AutoAppraise()
    end,
 })
 
