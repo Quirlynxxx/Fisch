@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.55_fix2",
+   Name = "[🍄] Fisch | Version 0.0.55_fix3",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -51,7 +51,7 @@ _G.pljump = 50
 
 _G.espisonade = false
 
-_G.apprwaight = nil
+_G.apprweight = nil
 _G.apprmutation = nil
 _G.apprshiny = nil
 _G.apprsparkling = nil
@@ -745,7 +745,60 @@ local teleportp = tp:CreateButton({
 })
 
 --Appraise
-local Section = appr:CreateSection("🔎 Coming soon...")
+local Section = appr:CreateSection("🔎 Appraise")
+local apprmutation = appr:CreateDropdown({
+   Name = "🧬 Select Mutation",
+   Options = {
+      "🌀 Sunken",
+      "🌌 Aurora",
+      "🌟 Mythical",
+      "☢️ Nuclear",
+      "🌊 Abyssal",
+      "🏛️ Atlantean",
+      "🌕 Lunar",
+      "💰 Midas",
+      "✨ Glossy",
+      "🥈 Silver",
+      "🎨 Mosaic",
+      "🔮 Hexed",
+      "⚡ Electric",
+      "🌑 Darkened",
+      "👻 Translucent",
+      "❄️ Frozen",
+      "⚫ Negative",
+      "🤍 Albino"
+   },
+   CurrentOption = {""},
+   MultipleOptions = false,
+   Flag = "apprmutation",
+   Callback = function(Options)
+      local selectedMutation = Options[1]
+      _G.apprmutation = selectedMutation:gsub(".* ", "")
+         Rayfield:Notify({
+         Title = "🟨 Test",
+         Content = "Mutation selected" .._G.apprmutation,
+         Duration = 3,
+         Image = "circle-x",
+      })
+   end,
+})
+
+local cweightappr = Tab:CreateInput({
+   Name = "🏋️‍♀️ Input Weight",
+   CurrentValue = "",
+   PlaceholderText = "Input Weight",
+   RemoveTextAfterFocusLost = false,
+   Flag = "cweightappr",
+   Callback = function(Text)
+         _G.apprweight = Text
+         Rayfield:Notify({
+         Title = "🟨 Test",
+         Content = "Weight inputed" .._G.apprweight,
+         Duration = 3,
+         Image = "circle-x",
+      })
+   end,
+})
 
 --Misc
 local Section = misc:CreateSection("👁 Visual")
