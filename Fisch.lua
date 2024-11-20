@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.55_fix7",
+   Name = "[🍄] Fisch | Version 0.0.55_fix8",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -344,44 +344,49 @@ local function teleportPlayer(x, y, z)
 end
 
 local function AutoAppraise()
-   while _G.aappr do
-       local player = game:GetService("Players").LocalPlayer
-       local character = player.Character or player.CharacterAdded:Wait()
-       local backpack = player:WaitForChild("Backpack")
-   
-       local function checkForFish(tool)
-           if tool:IsA("Tool") and tool:FindFirstChild("link") and tool.link:IsA("StringValue") then
-               local fishId = tool.link.Value
-               local inventory = ReplicatedStorage:WaitForChild("playerstats"):WaitForChild(player.Name):WaitForChild("Inventory")
-   
-               if inventory:FindFirstChild(fishId) then
-                   Rayfield:Notify({
-                       Title = "🟩 Success!",
-                       Content = "Fish " .. fishId .. " was found in the inventory!",
-                       Duration = 3,
-                       Image = "check-circle",
-                   })
-               else
-                   Rayfield:Notify({
-                       Title = "🟥 Failed!",
-                       Content = "Fish " .. fishId .. " is not in the inventory!",
-                       Duration = 3,
-                       Image = "circle-x",
-                   })
-               end
-           end
-       end
-   
-       for _, tool in ipairs(backpack:GetChildren()) do
-           if tool:IsA("Tool") then
-               tool.Equipped:Connect(function()
-                   checkForFish(tool)
-               end)
-           end
-       end
-   
-       task.wait(0.1)
-   end
+    local selectedfish = nil
+    local player = game:GetService("Players").LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local backpack = player:WaitForChild("Backpack")
+    local inventory = game:GetService("ReplicatedStorage"):WaitForChild("playerstats"):WaitForChild(player.Name):WaitForChild("Inventory")
+
+    while _G.aappr do
+        selectedfish = nil
+        for _, tool in ipairs(backpack:GetChildren()) do
+            if tool:IsA("Tool") and tool:FindFirstChild("link") then
+                selectedfish = tool.link.Value
+                break
+            end
+        end
+
+        if selectedfish then
+            local fishExists = false
+            for _, fish in ipairs(inventory:GetChildren()) do
+                if fish.Value == selectedfish then
+                    fishExists = true
+                    break
+                end
+            end
+
+            if fishExists then
+                Rayfield:Notify({
+                    Title = "🟩 Success!",
+                    Content = "Fish found in inventory!",
+                    Duration = 3,
+                    Image = "check",
+                })
+            else
+                Rayfield:Notify({
+                    Title = "🟥 Failed!",
+                    Content = "Fish not found in inventory!",
+                    Duration = 3,
+                    Image = "circle-x",
+                })
+            end
+        end
+
+        task.wait(0.1)
+    end
 end
 
 --Tabs
