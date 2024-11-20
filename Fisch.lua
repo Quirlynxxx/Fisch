@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.55_fix5",
+   Name = "[🍄] Fisch | Version 0.0.55_fix6",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -355,14 +355,14 @@ local function AutoAppraise()
    
                if inventory:FindFirstChild(fishId) then
                    Rayfield:Notify({
-                       Title = "🟩 Fish Found",
+                       Title = "🟩 Success!",
                        Content = "Fish " .. fishId .. " was found in the inventory!",
                        Duration = 3,
                        Image = "check-circle",
                    })
                else
                    Rayfield:Notify({
-                       Title = "🟥 Fish Not Found",
+                       Title = "🟥 Failed!",
                        Content = "Fish " .. fishId .. " is not in the inventory!",
                        Duration = 3,
                        Image = "circle-x",
@@ -381,11 +381,13 @@ local function AutoAppraise()
    
        task.wait(0.1)
    end
+end
 
 --Tabs
 local ma = Window:CreateTab("Fisching", "fish")
 local tp = Window:CreateTab("Teleport", "earth")
 local appr = Window:CreateTab("Appraise", "search")
+local treasure = Window:CreateTab("Treasure", "archive")
 local misc = Window:CreateTab("Misc", "hammer")
 local setting = Window:CreateTab("Settings", "bolt")
 
@@ -851,6 +853,9 @@ local aappr = appr:CreateToggle({
          AutoAppraise()
    end,
 })
+
+--Treasure
+local Section = treasure:CreateSection("💎 Coming soon...")
 
 --Misc
 local Section = misc:CreateSection("👁 Visual")
