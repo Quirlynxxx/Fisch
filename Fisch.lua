@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.55_fix11",
+   Name = "[🍄] Fisch | Version 0.0.55_fix12",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -51,7 +51,6 @@ _G.pljump = 50
 
 _G.espisonade = false
 
-_G.themera = nil
 local themes = {
     {"🌟 Default", "Default"},
     {"✨ Amber Glow", "AmberGlow"},
@@ -182,14 +181,14 @@ local function AutoShake()
             if _G.ashakespeed then
                 task.wait(0.01)
             else
-                task.wait(0.75)
+                task.wait(math.random(60, 100) / 100)
             end
         else
             clickWithCursor()
             if _G.ashakespeed then
                 task.wait(0.01)
             else
-                task.wait(0.75)
+                task.wait(math.random(60, 100) / 100)
             end
         end
     end
@@ -348,10 +347,9 @@ local function teleportPlayer(x, y, z)
     end
 end
 
-local function applyRandomTheme()
-    local randomIndex = math.random(1, #themes)
-    local selectedTheme = themes[randomIndex]
-    _G.themera = selectedTheme[2]
+local function chooseRandomTheme()
+    math.randomseed(os.time())
+    return themes[math.random(1, #themes)]
 end
 
 --Tabs
@@ -391,12 +389,12 @@ local acast = ma:CreateToggle({
 local Section = ma:CreateSection("🔀 Auto Shake")
 local ashakespeed = ma:CreateDropdown({
    Name = "⚡ Select Shake Speed",
-   Options = {"🟩 Fast", "🟨 Normal"},
-   CurrentOption = {"🟩 Fast"},
+   Options = {"🟨 Cheat", "🟩 Human"},
+   CurrentOption = {"🟨 Cheat"},
    MultipleOptions = false,
    Flag = "ashakespeed",
    Callback = function(Options)
-      if Options[1] == "🟩 Fast" then
+      if Options[1] == "🟨 Cheat" then
          _G.ashakespeed = true
       else
          _G.ashakespeed = false
@@ -881,24 +879,25 @@ local themes = setting:CreateDropdown({
 })
 
 local applytheme = setting:CreateButton({
-   Name = "🎲 Apply Random Theme",
-   Callback = function()
-   local themer = _G.themera
-         if themer then
-            Window.ModifyTheme(_G.themera)
+    Name = "🎲 Apply Random Theme",
+    Callback = function()
+        local randomTheme = chooseRandomTheme()
+        if randomTheme then
+            local themeName = randomTheme[2]
+            Window.ModifyTheme(themeName)
             Rayfield:Notify({
-            Title = "🟩 Success!",
-            Content = "Theme applyed!",
-            Duration = 3,
-            Image = "check",
-         })
-         else
+                Title = "🟩 Success!",
+                Content = "Theme \"" .. randomTheme[1] .. "\" applied!",
+                Duration = 3,
+                Image = "check",
+            })
+        else
             Rayfield:Notify({
-            Title = "🟥 Failed!",
-            Content = "Cant apply theme!",
-            Duration = 3,
-            Image = "circle-x",
-         })
-      end
-   end,
+                Title = "🟥 Failed!",
+                Content = "Unable to apply theme!",
+                Duration = 3,
+                Image = "circle-x",
+            })
+        end
+    end,
 })
