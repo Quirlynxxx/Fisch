@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.55_fix10",
+   Name = "[🍄] Fisch | Version 0.0.55_fix11",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -50,6 +50,19 @@ _G.plspeed = 16
 _G.pljump = 50
 
 _G.espisonade = false
+
+_G.themera = nil
+local themes = {
+    {"🌟 Default", "Default"},
+    {"✨ Amber Glow", "AmberGlow"},
+    {"💜 Amethyst", "Amethyst"},
+    {"🌸 Bloom", "Bloom"},
+    {"🌌 Dark Blue", "DarkBlue"},
+    {"🍃 Green", "Green"},
+    {"🌞 Light", "Light"},
+    {"🌊 Ocean", "Ocean"},
+    {"🌿 Serenity", "Serenity"}
+}
 
 --Functions
 local function clickAndHoldCenterOfScreen()
@@ -335,10 +348,15 @@ local function teleportPlayer(x, y, z)
     end
 end
 
+local function applyRandomTheme()
+    local randomIndex = math.random(1, #themes)
+    local selectedTheme = themes[randomIndex]
+    _G.themera = selectedTheme[2]
+end
+
 --Tabs
 local ma = Window:CreateTab("Fisching", "fish")
 local tp = Window:CreateTab("Teleport", "earth")
-local ench = Window:CreateTab("Enchant", "album")
 local treasure = Window:CreateTab("Treasure", "gem")
 local misc = Window:CreateTab("Misc", "hammer")
 local setting = Window:CreateTab("Settings", "bolt")
@@ -740,9 +758,6 @@ local teleportp = tp:CreateButton({
    end,
 })
 
---Enchant
-local Section = ench:CreateSection("📙 Coming soon...")
-
 --Treasure
 local Section = treasure:CreateSection("💎 Coming soon...")
 
@@ -825,25 +840,6 @@ local pjumpPower = misc:CreateSlider({
 
 --Settings
 local Section = setting:CreateSection("⚙ Settings")
-
-local themes = {
-    {"🌟 Default", "Default"},
-    {"✨ Amber Glow", "AmberGlow"},
-    {"💜 Amethyst", "Amethyst"},
-    {"🌸 Bloom", "Bloom"},
-    {"🌌 Dark Blue", "DarkBlue"},
-    {"🍃 Green", "Green"},
-    {"🌞 Light", "Light"},
-    {"🌊 Ocean", "Ocean"},
-    {"🌿 Serenity", "Serenity"}
-}
-
-local function applyRandomTheme()
-    local randomIndex = math.random(1, #themes)
-    local selectedTheme = themes[randomIndex]
-    Window.ModifyTheme(selectedTheme[2])
-end
-
 local themes = setting:CreateDropdown({
    Name = "🎨 Select Theme",
    Options = {
@@ -884,4 +880,25 @@ local themes = setting:CreateDropdown({
    end,
 })
 
-applyRandomTheme()
+local applytheme = setting:CreateButton({
+   Name = "🎲 Apply Random Theme",
+   Callback = function()
+   local themer = _G.themera
+         if themer then
+            Window.ModifyTheme(_G.themera)
+            Rayfield:Notify({
+            Title = "🟩 Success!",
+            Content = "Theme applyed!",
+            Duration = 3,
+            Image = "check",
+         })
+         else
+            Rayfield:Notify({
+            Title = "🟥 Failed!",
+            Content = "Cant apply theme!",
+            Duration = 3,
+            Image = "circle-x",
+         })
+      end
+   end,
+})
