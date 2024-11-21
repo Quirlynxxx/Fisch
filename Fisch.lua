@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.55_fix8",
+   Name = "[🍄] Fisch | Version 0.0.55_fix9",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -51,6 +51,7 @@ _G.pljump = 50
 
 _G.espisonade = false
 
+_G.apprselectedfisch = nil
 _G.aappr = false
 _G.apprweight = nil
 _G.apprmutation = nil
@@ -344,47 +345,38 @@ local function teleportPlayer(x, y, z)
 end
 
 local function AutoAppraise()
-    local selectedfish = nil
     local player = game:GetService("Players").LocalPlayer
-    local character = player.Character or player.CharacterAdded:Wait()
     local backpack = player:WaitForChild("Backpack")
     local inventory = game:GetService("ReplicatedStorage"):WaitForChild("playerstats"):WaitForChild(player.Name):WaitForChild("Inventory")
 
     while _G.aappr do
-        selectedfish = nil
-        for _, tool in ipairs(backpack:GetChildren()) do
-            if tool:IsA("Tool") and tool:FindFirstChild("link") then
-                selectedfish = tool.link.Value
-                break
-            end
-        end
-
-        if selectedfish then
-            local fishExists = false
-            for _, fish in ipairs(inventory:GetChildren()) do
-                if fish.Value == selectedfish then
-                    fishExists = true
+        if inventory then
+            local fishList = {}
+            for _, item in pairs(inventory:GetChildren()) do
+                if #fishList < 3 then
+                    table.insert(fishList, item.Name)
+                else
                     break
                 end
             end
 
-            if fishExists then
+            if #fishList > 0 then
+                local fishNames = table.concat(fishList, ", ")
                 Rayfield:Notify({
                     Title = "🟩 Success!",
-                    Content = "Fish found in inventory!",
+                    Content = "Inventory found, your 3 fish are: " .. fishNames,
                     Duration = 3,
                     Image = "check",
                 })
             else
                 Rayfield:Notify({
-                    Title = "🟥 Failed!",
-                    Content = "Fish not found in inventory!",
+                    Title = "🟥 Error!",
+                    Content = "Inventory found, but no fish detected.",
                     Duration = 3,
                     Image = "circle-x",
                 })
             end
         end
-
         task.wait(0.1)
     end
 end
@@ -795,7 +787,7 @@ local teleportp = tp:CreateButton({
 })
 
 --Appraise
-local Section = appr:CreateSection("🔎 Appraise")
+local Section = appr:CreateSection("🐟 Main")
 local apprmutation = appr:CreateDropdown({
    Name = "🧬 Select Mutation",
    Options = {
@@ -849,7 +841,19 @@ local cweightappr = appr:CreateInput({
       })
    end,
 })
+local Divider = appr:CreateDivider()
 
+local aappr = appr:CreateToggle({
+   Name = "🔎 Auto Appraise",
+   CurrentValue = false,
+   Flag = "aappr",
+   Callback = function(AapprV)
+         _G.aappr = AapprV
+         AutoAppraise()
+   end,
+})
+
+local Section = appr:CreateSection("💪 Uses")
 local ubig = appr:CreateToggle({
    Name = "💪 Use Big",
    CurrentValue = false,
@@ -883,16 +887,6 @@ local ushiny = appr:CreateToggle({
    Flag = "ushiny",
    Callback = function(UshinyV)
          _G.apprshiny = UshinyV
-   end,
-})
-
-local aappr = appr:CreateToggle({
-   Name = "🔎 Auto Appraise",
-   CurrentValue = false,
-   Flag = "aappr",
-   Callback = function(AapprV)
-         _G.aappr = AapprV
-         AutoAppraise()
    end,
 })
 
