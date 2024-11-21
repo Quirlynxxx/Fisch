@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.55_fix9",
+   Name = "[🍄] Fisch | Version 0.0.55_fix10",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -50,15 +50,6 @@ _G.plspeed = 16
 _G.pljump = 50
 
 _G.espisonade = false
-
-_G.apprselectedfisch = nil
-_G.aappr = false
-_G.apprweight = nil
-_G.apprmutation = nil
-_G.apprshiny = false
-_G.apprsparkling = false
-_G.apprbig = false
-_G.apprgiant = false
 
 --Functions
 local function clickAndHoldCenterOfScreen()
@@ -178,14 +169,14 @@ local function AutoShake()
             if _G.ashakespeed then
                 task.wait(0.01)
             else
-                task.wait(0.6)
+                task.wait(0.75)
             end
         else
             clickWithCursor()
             if _G.ashakespeed then
                 task.wait(0.01)
             else
-                task.wait(0.6)
+                task.wait(0.75)
             end
         end
     end
@@ -344,48 +335,11 @@ local function teleportPlayer(x, y, z)
     end
 end
 
-local function AutoAppraise()
-    local player = game:GetService("Players").LocalPlayer
-    local backpack = player:WaitForChild("Backpack")
-    local inventory = game:GetService("ReplicatedStorage"):WaitForChild("playerstats"):WaitForChild(player.Name):WaitForChild("Inventory")
-
-    while _G.aappr do
-        if inventory then
-            local fishList = {}
-            for _, item in pairs(inventory:GetChildren()) do
-                if #fishList < 3 then
-                    table.insert(fishList, item.Name)
-                else
-                    break
-                end
-            end
-
-            if #fishList > 0 then
-                local fishNames = table.concat(fishList, ", ")
-                Rayfield:Notify({
-                    Title = "🟩 Success!",
-                    Content = "Inventory found, your 3 fish are: " .. fishNames,
-                    Duration = 3,
-                    Image = "check",
-                })
-            else
-                Rayfield:Notify({
-                    Title = "🟥 Error!",
-                    Content = "Inventory found, but no fish detected.",
-                    Duration = 3,
-                    Image = "circle-x",
-                })
-            end
-        end
-        task.wait(0.1)
-    end
-end
-
 --Tabs
 local ma = Window:CreateTab("Fisching", "fish")
 local tp = Window:CreateTab("Teleport", "earth")
-local appr = Window:CreateTab("Appraise", "search")
-local treasure = Window:CreateTab("Treasure", "archive")
+local ench = Window:CreateTab("Enchant", "album")
+local treasure = Window:CreateTab("Treasure", "gem")
 local misc = Window:CreateTab("Misc", "hammer")
 local setting = Window:CreateTab("Settings", "bolt")
 
@@ -510,7 +464,7 @@ local smerchant = ma:CreateDropdown({
       elseif selectedMerchant == "🌌 Mel" then
          _G.smerchant = "Mel Merchant"
       elseif selectedMerchant == "⛏ Marc (The Depths)" then
-         _G.smerchant = "The Depth Merchant"
+         _G.smerchant = "Depth Merchant"
       end
    end,
 })
@@ -786,109 +740,8 @@ local teleportp = tp:CreateButton({
    end,
 })
 
---Appraise
-local Section = appr:CreateSection("🐟 Main")
-local apprmutation = appr:CreateDropdown({
-   Name = "🧬 Select Mutation",
-   Options = {
-      "🌀 Sunken",
-      "🌌 Aurora",
-      "🌟 Mythical",
-      "☢️ Nuclear",
-      "🌊 Abyssal",
-      "🏛️ Atlantean",
-      "🌕 Lunar",
-      "💰 Midas",
-      "✨ Glossy",
-      "🥈 Silver",
-      "🎨 Mosaic",
-      "🔮 Hexed",
-      "⚡ Electric",
-      "🌑 Darkened",
-      "👻 Translucent",
-      "❄️ Frozen",
-      "⚫ Negative",
-      "🤍 Albino"
-   },
-   CurrentOption = {""},
-   MultipleOptions = false,
-   Flag = "apprmutation",
-   Callback = function(Options)
-      local selectedMutation = Options[1]
-      _G.apprmutation = selectedMutation:gsub(".* ", "")
-         Rayfield:Notify({
-         Title = "🟨 Test",
-         Content = "Mutation selected: " .._G.apprmutation,
-         Duration = 3,
-         Image = "check",
-      })
-   end,
-})
-
-local cweightappr = appr:CreateInput({
-   Name = "🏋️‍♀️ Input Weight",
-   CurrentValue = "",
-   PlaceholderText = "Input Weight",
-   RemoveTextAfterFocusLost = false,
-   Flag = "cweightappr",
-   Callback = function(Text)
-         _G.apprweight = Text
-         Rayfield:Notify({
-         Title = "🟨 Test",
-         Content = "Weight inputed: " .._G.apprweight,
-         Duration = 3,
-         Image = "check",
-      })
-   end,
-})
-local Divider = appr:CreateDivider()
-
-local aappr = appr:CreateToggle({
-   Name = "🔎 Auto Appraise",
-   CurrentValue = false,
-   Flag = "aappr",
-   Callback = function(AapprV)
-         _G.aappr = AapprV
-         AutoAppraise()
-   end,
-})
-
-local Section = appr:CreateSection("💪 Uses")
-local ubig = appr:CreateToggle({
-   Name = "💪 Use Big",
-   CurrentValue = false,
-   Flag = "ubig",
-   Callback = function(UbigV)
-         _G.apprbig = UbigV
-   end,
-})
-
-local ugiant = appr:CreateToggle({
-   Name = "🌟 Use Giant",
-   CurrentValue = false,
-   Flag = "ugiant",
-   Callback = function(UgiantV)
-         _G.apprgiant = UgiantV
-   end,
-})
-
-local usparkling = appr:CreateToggle({
-   Name = "✨ Use Sparkling",
-   CurrentValue = false,
-   Flag = "usparkling",
-   Callback = function(UsparklingV)
-         _G.apprsparkling = UsparklingV
-   end,
-})
-
-local ushiny = appr:CreateToggle({
-   Name = "💎 Use Shiny",
-   CurrentValue = false,
-   Flag = "ushiny",
-   Callback = function(UshinyV)
-         _G.apprshiny = UshinyV
-   end,
-})
+--Enchant
+local Section = ench:CreateSection("📙 Coming soon...")
 
 --Treasure
 local Section = treasure:CreateSection("💎 Coming soon...")
@@ -957,7 +810,7 @@ local pjumpPower = misc:CreateSlider({
    Name = "🦘 Jump Power",
    Range = {50, 150},
    Increment = 1,
-   Suffix = "Power",
+   Suffix = "Jump",
    CurrentValue = 50,
    Flag = "pjumpPower",
    Callback = function(pjumpPowerValue)
@@ -970,24 +823,27 @@ local pjumpPower = misc:CreateSlider({
    end,
 })
 
-local pfov = misc:CreateSlider({
-   Name = "🔭 Field of View",
-   Range = {70, 120},
-   Increment = 1,
-   Suffix = "FOV",
-   CurrentValue = 70,
-   Flag = "pfov",
-   Callback = function(pfovValue)
-      local player = game.Players.LocalPlayer
-      if player and player.Character then
-         local camera = game:GetService("Workspace").CurrentCamera
-         camera.FieldOfView = pfovValue
-      end
-   end,
-})
-
 --Settings
 local Section = setting:CreateSection("⚙ Settings")
+
+local themes = {
+    {"🌟 Default", "Default"},
+    {"✨ Amber Glow", "AmberGlow"},
+    {"💜 Amethyst", "Amethyst"},
+    {"🌸 Bloom", "Bloom"},
+    {"🌌 Dark Blue", "DarkBlue"},
+    {"🍃 Green", "Green"},
+    {"🌞 Light", "Light"},
+    {"🌊 Ocean", "Ocean"},
+    {"🌿 Serenity", "Serenity"}
+}
+
+local function applyRandomTheme()
+    local randomIndex = math.random(1, #themes)
+    local selectedTheme = themes[randomIndex]
+    Window.ModifyTheme(selectedTheme[2])
+end
+
 local themes = setting:CreateDropdown({
    Name = "🎨 Select Theme",
    Options = {
@@ -1027,3 +883,5 @@ local themes = setting:CreateDropdown({
          end
    end,
 })
+
+applyRandomTheme()
