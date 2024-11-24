@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.55_fix14",
+   Name = "[🍄] Fisch | Version 0.0.55_fix15",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -515,7 +515,7 @@ local tlocation = tp:CreateDropdown({
       "🌞 Sunstone Island", "🏴‍☠️ Forsaken Shores", "🗿 Statue Of Sovereignty",
       "⛪ Keepers Altar", "🌪 Vertigo", "🌊 Desolate Deep", "🌌 Desolate Pocket", 
       "⛏ The Depths", "🌊 Brine Pool", "🌴 Earmark Isle", "🎸 Haddock Rock",
-      "🌉 The Arch", "🌳 Birch Cay", "⚒ Harvesters Spike"
+      "🌉 The Arch", "🌳 Birch Cay", "⚒ Harvesters Spike", "🦴 Uncharted Island"
    },
    CurrentOption = {""},
    MultipleOptions = false,
