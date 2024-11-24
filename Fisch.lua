@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🍄] Fisch | Version 0.0.55_fix13",
+   Name = "[🍄] Fisch | Version 0.0.55_fix14",
    LoadingTitle = "[🍄] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -458,7 +458,7 @@ local smerchant = ma:CreateDropdown({
    Name = "👨‍🦰 Select Merchant",
    Options = {
       "🌲 Marc", "🏖 Matt", "🌞 Max", "❄️ Mike", 
-      "⚛ Cort", "🌊 Maverick", "🌌 Mel", "⛏ Marc (The Depths)"
+      "⚛ Marytn", "🌊 Maverick", "🌌 Mel", "⛏ Milo"
    },
    CurrentOption = "",  
    MultipleOptions = false,
@@ -473,14 +473,14 @@ local smerchant = ma:CreateDropdown({
          _G.smerchant = "Max Merchant"
       elseif selectedMerchant == "❄️ Mike" then
          _G.smerchant = "Mike Merchant"
-      elseif selectedMerchant == "⚛ Cort" then
-         _G.smerchant = "Cort Merchant"
+      elseif selectedMerchant == "⚛ Marytn" then
+         _G.smerchant = "Marytn Merchant"
       elseif selectedMerchant == "🌊 Maverick" then
          _G.smerchant = "Maverick Merchant"
       elseif selectedMerchant == "🌌 Mel" then
          _G.smerchant = "Mel Merchant"
-      elseif selectedMerchant == "⛏ Marc (The Depths)" then
-         _G.smerchant = "Depth Merchant"
+      elseif selectedMerchant == "⛏ Milo" then
+         _G.smerchant = "Milo Merchant"
       end
    end,
 })
@@ -549,7 +549,7 @@ local tlocation = tp:CreateDropdown({
          elseif selectedLocation == "🌌 Desolate Pocket" then
             teleportPlayer(-1500, -235, -2856)
          elseif selectedLocation == "⛏ The Depths" then
-            teleportPlayer(502, -707, 1234)
+            teleportPlayer(948, -712, 1268)
          elseif selectedLocation == "🌊 Brine Pool" then
             teleportPlayer(-1800, -143, -3404)
          elseif selectedLocation == "🌴 Earmark Isle" then
@@ -562,6 +562,8 @@ local tlocation = tp:CreateDropdown({
             teleportPlayer(1700, 125, -2500)
          elseif selectedLocation == "⚒ Harvesters Spike" then
             teleportPlayer(-1257, 139, 1550)
+         elseif selectedLocation == "🦴 Uncharted Island" then
+            teleportPlayer(4033, 132, 77)
          end
    end,
 })
@@ -610,7 +612,8 @@ local tfishingRods = tp:CreateDropdown({
       "🔍 Kings Rod",
       "🛠️ Reinforced Rod",
       "🏴‍☠️ Scurvy Rod",
-      "🏮 Rod Of The Depths"
+      "🏮 Rod Of The Depths",
+      "🦴 Relic Rod"
    },
    CurrentOption = {""},
    MultipleOptions = false,
@@ -642,6 +645,8 @@ local tfishingRods = tp:CreateDropdown({
             teleportPlayer(-2825, 215, 1512)
          elseif selectedRod == "🏮 Rod Of The Depths" then
             teleportPlayer(1703, -903, 1443)
+         elseif selectedRod == "🦴 Relic Rod" then
+            teleportPlayer(4098, 40, 30)
          end
    end,
 })
