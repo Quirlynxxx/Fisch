@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🦴] Fisch | Version 0.0.55_fix18",
+   Name = "[🦴] Fisch | Version 0.0.55_fix19",
    LoadingTitle = "[🦴] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -356,23 +356,23 @@ end
 
 local function TeleportAndOpenChests()
     for _, chest in pairs(workspace.world.chests:GetChildren()) do
-        if chest:IsA("BasePart") and not chest:FindFirstChild("ChestOpen") then
-            local position = string.match(chest.Name, "(-?%d+%.%d+)_(-?%d+%.%d+)_(-?%d+%.%d+)")
-            if position then
-                local x, y, z = position:match("(-?%d+%.%d+)_(-?%d+%.%d+)_(-?%d+%.%d+)")
-                if x and y and z then
-                    x, y, z = tonumber(x), tonumber(y), tonumber(z)
-                    game.Players.LocalPlayer.Character:MoveTo(Vector3.new(x, y, z))
-                    wait(1)
-                    local args = {
-                        [1] = {
-                            ["x"] = x,
-                            ["y"] = y,
-                            ["z"] = z
-                        }
+        if chest and not chest:FindFirstChild("ChestOpen") then
+            local position = string.gsub(chest.Name, "TreasureChest_", "")
+            local x, y, z = position:match("(-?%d+%.%d+)_(-?%d+%.%d+)_(-?%d+%.%d+)")
+            if x and y and z then
+                x, y, z = tonumber(x), tonumber(y), tonumber(z)
+                local rootPart = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+                rootPart.CFrame = CFrame.new(x, y, z)
+                wait(2)
+                local args = {
+                    [1] = {
+                        ["x"] = x,
+                        ["y"] = y,
+                        ["z"] = z
                     }
-                    game:GetService("ReplicatedStorage").events.open_treasure:FireServer(unpack(args))
-                end
+                }
+                task.wait(0.2)
+                game:GetService("ReplicatedStorage").events.open_treasure:FireServer(unpack(args))
             end
         end
     end
@@ -380,8 +380,8 @@ end
 
 local function AutoOpenChest()
     while _G.aopenchest do
-         TeleportAndOpenChests()
-         task.wait(1)
+        TeleportAndOpenChests()
+        task.wait(1)
     end
 end
 
