@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🦴] Fisch | Version 0.0.55_fix24",
+   Name = "[🦴] Fisch | Version 0.0.55_fix25",
    LoadingTitle = "[🦴] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "DarkBlue",
@@ -1001,22 +1001,22 @@ local configs = setting:CreateDropdown({
          local selectedConfig = Options[1]
          if selectedConfig == "🟩 Legit" then
             _G.areelmode = true
-            Dropdown:Set({"🟩 Normal"})
+            areelmode:Set({"🟩 Normal"})
             _G.ashakemode = false
-            Dropdown:Set({"🖱 Mouse"})
+            ashakemode:Set({"🖱 Mouse"})
             _G.ashakespeed = false
-            Dropdown:Set({"🟩 Human"})
+            ashakespeed:Set({"🟩 Human"})
             _G.acastmode = false
-            Dropdown:Set({"🖱 Mouse"})
+            acastmode:Set({"🖱 Mouse"})
          elseif selectedConfig == "🟥 Rage" then
             _G.areelmode = false
-            Dropdown:Set({"🟨 Instant"})
+            areelmode:Set({"🟨 Instant"})
             _G.ashakemode = true
-            Dropdown:Set({"⌨ KeyCode"})
+            ashakemode:Set({"⌨ KeyCode"})
             _G.ashakespeed = true
-            Dropdown:Set({"🟨 Cheat"})
+            ashakespeed:Set({"🟨 Cheat"})
             _G.acastmode = true
-            Dropdown:Set({"🖱 Mouse"})
+            acastmode:Set({"🖱 Mouse"})
          end
    end,
 })  
