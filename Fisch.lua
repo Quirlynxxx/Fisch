@@ -3,10 +3,10 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🦴] Fisch | Version 0.0.55_fix23",
+   Name = "[🦴] Fisch | Version 0.0.55_fix24",
    LoadingTitle = "[🦴] Fisch",
    LoadingSubtitle = "by Kirymeww",
-   Theme = "Default",
+   Theme = "DarkBlue",
    DisableRayfieldPrompts = false,
    DisableBuildWarnings = false,
 
@@ -928,7 +928,7 @@ local pjumpPower = misc:CreateSlider({
 })
 
 --Settings
-local Section = setting:CreateSection("⚙ Settings")
+local Section = setting:CreateSection("🎨 Themes")
 local themes = setting:CreateDropdown({
    Name = "🎨 Select Theme",
    Options = {
@@ -942,7 +942,7 @@ local themes = setting:CreateDropdown({
       "🌊 Ocean", 
       "🌿 Serenity"
    },
-   CurrentOption = {""},
+   CurrentOption = {"🌌 Dark Blue"},
    MultipleOptions = false,
    Flag = "themes",
    Callback = function(Options)
@@ -976,12 +976,6 @@ local applytheme = setting:CreateButton({
         if randomTheme then
             local themeName = randomTheme[2]
             Window.ModifyTheme(themeName)
-            Rayfield:Notify({
-                Title = "🟩 Success!",
-                Content = "Theme \"" .. randomTheme[1] .. "\" applied!",
-                Duration = 3,
-                Image = "check",
-            })
         else
             Rayfield:Notify({
                 Title = "🟥 Failed!",
@@ -992,3 +986,37 @@ local applytheme = setting:CreateButton({
         end
     end,
 })
+
+local Section = setting:CreateSection("⚙ Pre-load Configs")
+local configs = setting:CreateDropdown({
+   Name = "⚙ Select Config",
+   Options = {
+      "🟩 Legit", 
+      "🟥 Rage"
+   },
+   CurrentOption = {"🟥 Rage"},
+   MultipleOptions = false,
+   Flag = "configs",
+   Callback = function(Options)
+         local selectedConfig = Options[1]
+         if selectedConfig == "🟩 Legit" then
+            _G.areelmode = true
+            Dropdown:Set({"🟩 Normal"})
+            _G.ashakemode = false
+            Dropdown:Set({"🖱 Mouse"})
+            _G.ashakespeed = false
+            Dropdown:Set({"🟩 Human"})
+            _G.acastmode = false
+            Dropdown:Set({"🖱 Mouse"})
+         elseif selectedConfig == "🟥 Rage" then
+            _G.areelmode = false
+            Dropdown:Set({"🟨 Instant"})
+            _G.ashakemode = true
+            Dropdown:Set({"⌨ KeyCode"})
+            _G.ashakespeed = true
+            Dropdown:Set({"🟨 Cheat"})
+            _G.acastmode = true
+            Dropdown:Set({"🖱 Mouse"})
+         end
+   end,
+})  
