@@ -16,7 +16,7 @@ local Window = Rayfield:CreateWindow({
       FileName = "FischCfg"
    },
       
-   KeySystem = false,
+   KeySystem = true,
    KeySettings = {
       Title = ""[🦴] Fisch",
       Subtitle = "🔑 Key System",
