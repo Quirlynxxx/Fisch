@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🦴] Fisch | Version 0.0.55_fix17",
+   Name = "[🦴] Fisch | Version 0.0.55_fix18",
    LoadingTitle = "[🦴] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -16,7 +16,7 @@ local Window = Rayfield:CreateWindow({
       FileName = "FischCfg"
    },
       
-   KeySystem = true,
+   KeySystem = false,
    KeySettings = {
       Title = "[🦴] Fisch",
       Subtitle = "🔑 Key System",
@@ -39,6 +39,7 @@ _G.areel = false
 _G.freezep = false
 _G.asell = false
 _G.asellinhand = false
+_G.aopenchest = false
 
 _G.areelmode = false
 _G.ashakemode = true
@@ -351,6 +352,37 @@ end
 local function chooseRandomTheme()
     math.randomseed(os.time())
     return themes[math.random(1, #themes)]
+end
+
+local function TeleportAndOpenChests()
+    for _, chest in pairs(workspace.world.chests:GetChildren()) do
+        if chest:IsA("BasePart") and not chest:FindFirstChild("ChestOpen") then
+            local position = string.match(chest.Name, "(-?%d+%.%d+)_(-?%d+%.%d+)_(-?%d+%.%d+)")
+            if position then
+                local x, y, z = position:match("(-?%d+%.%d+)_(-?%d+%.%d+)_(-?%d+%.%d+)")
+                if x and y and z then
+                    x, y, z = tonumber(x), tonumber(y), tonumber(z)
+                    game.Players.LocalPlayer.Character:MoveTo(Vector3.new(x, y, z))
+                    wait(1)
+                    local args = {
+                        [1] = {
+                            ["x"] = x,
+                            ["y"] = y,
+                            ["z"] = z
+                        }
+                    }
+                    game:GetService("ReplicatedStorage").events.open_treasure:FireServer(unpack(args))
+                end
+            end
+        end
+    end
+end
+
+local function AutoOpenChest()
+    while _G.aopenchest do
+         TeleportAndOpenChests()
+         task.wait(1)
+    end
 end
 
 --Tabs
@@ -763,7 +795,31 @@ local teleportp = tp:CreateButton({
 })
 
 --Treasure
-local Section = treasure:CreateSection("💎 Coming soon...")
+local Section = treasure:CreateSection("🗺 Map")
+local tptojack = treasure:CreateButton({
+   Name = "🏴‍☠️ Teleport to Jack Marrow",
+   Callback = function()
+      teleportPlayer(-2826, 215, 1519)
+   end,
+})
+
+local fixmaptrs = treasure:CreateButton({
+   Name = "🛠 Fix Map",
+   Callback = function()
+      workspace.world.npcs:FindFirstChild("Jack Marrow").treasure.repairmap:InvokeServer()
+   end,
+})
+
+local Section = treasure:CreateSection("💎 Chest")
+local aopenchest = treasure:CreateToggle({
+   Name = "💎 Auto Open Chest",
+   CurrentValue = false,
+   Flag = "aopenchest",
+   Callback = function(AaopenchestV)
+         _G.aopenchest = AaopenchestV
+         AutoOpenChest()
+   end,
+})
 
 --Misc
 local Section = misc:CreateSection("👁 Visual")
