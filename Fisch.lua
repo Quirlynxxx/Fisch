@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🦴] Fisch | Version 0.0.55_fix20",
+   Name = "[🦴] Fisch | Version 0.0.55_fix21",
    LoadingTitle = "[🦴] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -815,6 +815,31 @@ local teleporttm = tp:CreateButton({
          Rayfield:Notify({
             Title = "🟥 Failed!",
             Content = "Travelling Boat not found!",
+            Duration = 3,
+            Image = "circle-x",
+         })
+      end
+   end,
+})
+
+local teleportp = tp:CreateButton({
+   Name = "🦴 Teleport To Archaeologists Boat",
+   Callback = function()
+      local boat = workspace["Archaeologists Boat"]["Meshes/ArchaeologistsBoat2_Plane.009"]
+
+      if boat and boat:FindFirstChild("HumanoidRootPart") then
+         local boatPosition = boat.HumanoidRootPart.Position
+         teleportPlayer(boatPosition.X, boatPosition.Y, boatPosition.Z)
+         Rayfield:Notify({
+            Title = "🟩 Success!",
+            Content = "Teleported to Archaeologists Boat!",
+            Duration = 3,
+            Image = "check",
+         })
+      else
+         Rayfield:Notify({
+            Title = "🟥 Failed!",
+            Content = "Archaeologists Boat not found!",
             Duration = 3,
             Image = "circle-x",
          })
