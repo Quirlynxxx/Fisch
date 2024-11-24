@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🦴] Fisch | Version 0.0.55_fix19",
+   Name = "[🦴] Fisch | Version 0.0.55_fix20",
    LoadingTitle = "[🦴] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -355,6 +355,7 @@ local function chooseRandomTheme()
 end
 
 local function TeleportAndOpenChests()
+    local initialPosition = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame
     for _, chest in pairs(workspace.world.chests:GetChildren()) do
         if chest and not chest:FindFirstChild("ChestOpen") then
             local position = string.gsub(chest.Name, "TreasureChest_", "")
@@ -371,17 +372,18 @@ local function TeleportAndOpenChests()
                         ["z"] = z
                     }
                 }
-                task.wait(0.2)
+                task.wait(0.05)
                 game:GetService("ReplicatedStorage").events.open_treasure:FireServer(unpack(args))
             end
         end
     end
+    game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart").CFrame = initialPosition
 end
 
 local function AutoOpenChest()
     while _G.aopenchest do
         TeleportAndOpenChests()
-        task.wait(1)
+        task.wait(0.4)
     end
 end
 
@@ -790,6 +792,32 @@ local teleportp = tp:CreateButton({
          Duration = 3,
          Image = "circle-x",
       })
+      end
+   end,
+})
+local Divider = tp:CreateDivider()
+
+local teleporttm = tp:CreateButton({
+   Name = "👴 Teleport To Travelling Boat",
+   Callback = function()
+      local boat = game:GetService("ReplicatedStorage").resources.replicated.merchant["Merchant Boat"]["Travelling Merchant"]
+
+      if boat and boat:FindFirstChild("HumanoidRootPart") then
+         local boatPosition = boat.HumanoidRootPart.Position
+         teleportPlayer(boatPosition.X, boatPosition.Y, boatPosition.Z)
+         Rayfield:Notify({
+            Title = "🟩 Success!",
+            Content = "Teleported to Travelling Boat!",
+            Duration = 3,
+            Image = "check",
+         })
+      else
+         Rayfield:Notify({
+            Title = "🟥 Failed!",
+            Content = "Travelling Boat not found!",
+            Duration = 3,
+            Image = "circle-x",
+         })
       end
    end,
 })
