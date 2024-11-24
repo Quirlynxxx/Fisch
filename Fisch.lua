@@ -3,7 +3,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 --Create Main Window
 local Window = Rayfield:CreateWindow({
-   Name = "[🦴] Fisch | Version 0.0.55_fix21",
+   Name = "[🦴] Fisch | Version 0.0.55_fix22",
    LoadingTitle = "[🦴] Fisch",
    LoadingSubtitle = "by Kirymeww",
    Theme = "Default",
@@ -797,35 +797,10 @@ local teleportp = tp:CreateButton({
 })
 local Divider = tp:CreateDivider()
 
-local teleporttm = tp:CreateButton({
-   Name = "👴 Teleport To Travelling Boat",
-   Callback = function()
-      local boat = game:GetService("ReplicatedStorage").resources.replicated.merchant["Merchant Boat"]["Travelling Merchant"]
-
-      if boat and boat:FindFirstChild("HumanoidRootPart") then
-         local boatPosition = boat.HumanoidRootPart.Position
-         teleportPlayer(boatPosition.X, boatPosition.Y, boatPosition.Z)
-         Rayfield:Notify({
-            Title = "🟩 Success!",
-            Content = "Teleported to Travelling Boat!",
-            Duration = 3,
-            Image = "check",
-         })
-      else
-         Rayfield:Notify({
-            Title = "🟥 Failed!",
-            Content = "Travelling Boat not found!",
-            Duration = 3,
-            Image = "circle-x",
-         })
-      end
-   end,
-})
-
 local teleportp = tp:CreateButton({
    Name = "🦴 Teleport To Archaeologists Boat",
    Callback = function()
-      local boat = workspace["Archaeologists Boat"]["Meshes/ArchaeologistsBoat2_Plane.009"]
+      local boat = workspace["Archaeologists Boat"].Model.Part
 
       if boat and boat:FindFirstChild("HumanoidRootPart") then
          local boatPosition = boat.HumanoidRootPart.Position
